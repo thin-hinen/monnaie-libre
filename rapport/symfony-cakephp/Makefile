@@ -4,7 +4,9 @@ TEX_FILES=symfony-cakephp.tex \
 TEX_INCLUDES=contenu.tex \
 	     introduction.tex \
 	     symfony.tex \
+	     cakephp.tex \
 	     img/fonctionnement.png \
+	     img/noidea.jpg \
              $(NULL)
 
 PDF_FILES=$(TEX_FILES:%.tex=%.pdf)
