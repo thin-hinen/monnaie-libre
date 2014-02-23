@@ -1,0 +1,9 @@
+# Ignorer les sorties de pdflatex
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+
