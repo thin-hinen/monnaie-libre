@@ -1,8 +1,3 @@
-
-%mvc : http://book.cakephp.org/2.0/en/cakephp-overview/understanding-model-view-controller.html
-%tutoriel de blog : http://book.cakephp.org/2.0/en/tutorials-and-examples/blog/blog.html
-
-%http://book.cakephp.org/2.0/en/tutorials-and-examples.html
 \begin{frame}
 \begin{center}
 \includegraphics[scale=0.40]{img/noidea.jpg}
@@ -11,7 +6,7 @@ Je dis une connerie $\Rightarrow$ interrompez moi !
 \end{center}
 \end{frame}
 
-\section{Structure des fichiers}
+\subsection{Structure des fichiers}
 
 \begin{frame}{/}
 \begin{description}
@@ -57,6 +52,37 @@ Je dis une connerie $\Rightarrow$ interrompez moi !
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]{app/controllers/users\_controller.php}
+\begin{lstlisting}[language=c++]
+<?php
+class UsersController extends AppController {
+  var $name='Users';
+  function index() {
+  }
+}
+?>
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{app/models/user.php}
+\begin{lstlisting}[language=c++]
+<?php
+class User extends AppModel {
+  var $name='User';
+}
+?>
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{index.ctp}
+\begin{lstlisting}[language=c++]
+<html>
+<?php
+  echo "Hello World";
+?>
+</html>
+\end{lstlisting}
+\end{frame}
 
 \end{document}
 
