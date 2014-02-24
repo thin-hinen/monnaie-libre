@@ -7,6 +7,8 @@ TEX_INCLUDES=contenu.tex \
 	     cakephp.tex \
 	     img/fonctionnement.png \
 	     img/noidea.jpg \
+	     img/basic_mvc.png \
+	     img/intro.png \
              $(NULL)
 
 PDF_FILES=$(TEX_FILES:%.tex=%.pdf)
