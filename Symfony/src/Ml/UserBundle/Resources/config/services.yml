@@ -1,0 +1,7 @@
+parameters:
+#    ml_user.example.class: Ml\UserBundle\Example
+
+services:
+#    ml_user.example:
+#        class: %ml_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,4 @@
+ml_user:
+    resource: "@MlUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
