@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Prestation
  *
- * @ORM\Table(name="prestation")
- * @ORM\Entity(repositoryClass="Ml\PrestationBundle\Entity\PrestationRepository")
+ * @ORM\MappedSuperclass
+ * 
  */
 abstract class Prestation
 {
@@ -17,7 +17,7 @@ abstract class Prestation
     * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    protected $user;
 
     /**
      * @var integer
@@ -26,35 +26,35 @@ abstract class Prestation
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
      */
-    private $titre;
+    protected $titre;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="datetime")
      */
-    private $dateCreation;
+    protected $dateCreation;
 
     /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text")
      */
-    private $commentaire;
+    protected $commentaire;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="signaler", type="integer")
      */
-    private $signaler;
+    protected $signaler;
 
     
 
@@ -63,7 +63,7 @@ abstract class Prestation
      *
      * @ORM\Column(name="visibilite", type="boolean")
      */
-    private $visibilite;
+    protected $visibilite;
 
 
     /**
