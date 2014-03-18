@@ -56,12 +56,8 @@ class User
      * @var string
      *
 	 * @Assert\NotBlank()
-	 * @Assert\Length(
-	 *			min="3"
-	 *			max="25",
-	 *			minMessage="Votre login doit faire au moins {{limit}} caractères",
-	 *			maxMessage="Votre login ne peut pas dépasser {{limit}} caractères"
-	 *)
+	 * @Assert\minMessage(3)
+	 * @Assert\maxMessage(25)
      * @ORM\Column(name="login", type="string", length=255)
      */
     private $login;

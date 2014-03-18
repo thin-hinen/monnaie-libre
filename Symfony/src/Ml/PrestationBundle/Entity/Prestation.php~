@@ -14,7 +14,7 @@ abstract class Prestation
 {
 
     /**
-    * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User",inversedBy="prestation", cascade{"persist,remove"})
+    * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User",inversedBy="prestation")
     * @ORM\JoinColumn(nullable=false)
      */
     protected $user;
