@@ -1,11 +1,51 @@
 {% extends "MlUserBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Accueil 
+ {{ parent() }} - User
 {% endblock %}
-
+	
 {% block user_body %}
 
-  <h2>Corps de la page</h2>
+<nav>
+	<p><a href="#editprofile">Edit Profile</a></p>
+	<p><a href="#changepassword">Change Password</a></p>
+	<p><a href="#emails">Emails</a></p>
+	<p><a href="#status">Status</a></p>
+	<p><a href="#transactions">Transactions</a></p>
+	<p><a href="#notifications">Notifications</a></p>
+</nav>
+
+<h2 id="editprofile">Edit Profile</h2>
+
+<div>
+<p>Avatar</p>
+<p>Email</p>
+<p>First Name</p>
+<p>Last Name</p>
+<p>Birth Date</p>
+<p>Job Title</p>
+</div>
+
+<div><p>Delete my account</p></div>
+
+<h2 id="changepassword">Change Password</h2>
+
+<div>
+<p>New password</p>
+<p>Type again</p>
+</div>
+
+<h2 id="emails">Emails</h2>
+
+<h2 id="status">Status</h2>
+
+<div>
+<p>Premium</p>
+<p>Karma</p>
+</div>
+
+<h2 id="transactions">Transactions</h2>
+
+<h2 id="notifications">Notifications</h2>
 
 {% endblock %}
