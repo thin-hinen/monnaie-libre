@@ -48,7 +48,7 @@ class UserController extends Controller
 
 				$this->get('session')->getFlashBag->add('inscription','Bienvenue dans notre communauté');
 
-				return $this->redirect($this->generateUrl('MlUser_see',array('id'=>$user->getId())));
+				return $this->redirect($this->generateUrl('ml_user_see',array('id'=>$user->getId())));
 			}
 		}
 		/** si le formulaire n'est pas valide, on le redemande*/
@@ -69,7 +69,7 @@ class UserController extends Controller
 				$this->get('session')->getFlashBag->add('désinscription','Nous sommes triste de vous voir partir... :\'-(');
 				
 				/** ici, plus tard, renvoyer vers l'accueil du site **/
-				return $this->redirect($this->generateUrl('MlUser_index'));
+				return $this->redirect($this->generateUrl('ml_user_index'));
 			}
 		}
 		/** si le formulaire n'est pas valide, on le redemande*/
