@@ -3,15 +3,22 @@
 namespace Ml\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ml\UserBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Ml\UserBundle\Entity\UserRepository")	 
  */
 class User
 {
+
+	/**
+     * @ORM\OneToMany(targetEntity="Ml\PrestationBundle\Entity\Prestation",mappedBy="user",cascade={"persist","remove"})
+     */
+    protected $prestations;
+
     /**
      * @var integer
      *
@@ -24,6 +31,7 @@ class User
     /**
      * @var boolean
      *
+	 * @Assert\NotBlank()
      * @ORM\Column(name="premium", type="boolean")
      */
     private $premium;
@@ -31,6 +39,7 @@ class User
     /**
      * @var string
      *
+	 * @Assert\NotBlank()
      * @ORM\Column(name="lastName", type="string", length=255)
      */
     private $lastName;
@@ -38,6 +47,7 @@ class User
     /**
      * @var string
      *
+	 * @Assert\NotBlank()
      * @ORM\Column(name="firstName", type="string", length=255)
      */
     private $firstName;
@@ -45,6 +55,13 @@ class User
     /**
      * @var string
      *
+	 * @Assert\NotBlank()
+	 * @Assert\Length(
+	 *			min="3",
+	 *			max="25",
+	 *			minMessage="Votre login doit faire au moins {{limit}} caractères",
+	 *			maxMessage="Votre login ne peut pas dépasser {{limit}} caractères"
+	 *)
      * @ORM\Column(name="login", type="string", length=255)
      */
     private $login;
@@ -52,16 +69,18 @@ class User
     /**
      * @var string
      *
+	 * @Assert\NotBlank()
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
-     * @var integer
+     * @var date
      *
-     * @ORM\Column(name="age", type="integer")
+	 * @Assert\Date
+     * @ORM\Column(name="dateNaissance", type="date")
      */
-    private $age;
+    private $dateNaissance;
 
     /**
      * @var integer
@@ -197,26 +216,26 @@ class User
     }
 
     /**
-     * Set age
+     * Set dateNaissance
      *
-     * @param integer $age
+     * @param integer $dateNaissance
      * @return User
      */
-    public function setAge($age)
+    public function setDateNaissance($dateNaissance)
     {
-        $this->age = $age;
+        $this->dateNaissance = $dateNaissance;
 
         return $this;
     }
 
     /**
-     * Get age
+     * Get dateNaissance
      *
      * @return integer 
      */
-    public function getAge()
+    public function getDateNaissance()
     {
-        return $this->age;
+        return $this->dateNaissance;
     }
 
     /**
@@ -241,4 +260,12 @@ class User
     {
         return $this->karma;
     }
+
+
+	/**
+	 * User constructor
+     */
+	public function __construct(){
+		$this->karma=0;
+	}
 }
