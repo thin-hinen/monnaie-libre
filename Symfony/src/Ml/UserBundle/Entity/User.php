@@ -15,7 +15,7 @@ class User
 {
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ml\PrestationBundle\Entity\Prestation",mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Ml\PrestationBundle\Entity\Prestation",mappedBy="user",cascade={"persist","remove"})
      */
     protected $prestations;
 
@@ -57,7 +57,7 @@ class User
      *
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
-	 *			min="3"
+	 *			min="3",
 	 *			max="25",
 	 *			minMessage="Votre login doit faire au moins {{limit}} caractères",
 	 *			maxMessage="Votre login ne peut pas dépasser {{limit}} caractères"
