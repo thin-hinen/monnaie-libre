@@ -43,16 +43,27 @@ class Transaction
     private $flag;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ml\TransactionBundle\Entity\Account")
+     * @ORM\ManyToOne(targetEntity="Ml\TransactionBundle\Entity\Account",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
      private $debtor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ml\TransactionBundle\Entity\Account")
+     * @ORM\ManyToOne(targetEntity="Ml\TransactionBundle\Entity\Account",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
      private $creditor;
+
+    /**
+     * Create a new transaction with parameters.
+     */
+    public function __constructor($debtor,$creditor,$amount,$flag) {
+        $this->setDebtor($debtor);
+        $this->setCreditor($creditor);
+        $this->setAmount($amount);
+        $this->setFlag($flag);
+        $this->setDate(time());
+    }
 
     /**
      * Get id
