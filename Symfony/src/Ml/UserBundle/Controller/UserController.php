@@ -55,7 +55,7 @@ class UserController extends Controller
 		return $this->render('MlUserBundle:User:add.html.twig', array('form'=>$form->createView()));
 	}
 
-	public function deleteAction(user $user)
+	public function deleteAction(User $user)
 	{
 		$form=$this->createFormBuilder()->getForm();
 		$req = $this->getRequest();
