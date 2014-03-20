@@ -1,0 +1,3 @@
+ml_transaction_homepage:
+    pattern:  /test_transaction
+    defaults: { _controller: MlTransactionBundle:Default:index }

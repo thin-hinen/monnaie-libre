@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Ml\UserBundle\MlUserBundle(),
             new Ml\PrestationBundle\MlPrestationBundle(),
+            new Ml\TransactionBundle\MlTransactionBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
