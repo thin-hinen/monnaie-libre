@@ -20,10 +20,10 @@ class DefaultController extends Controller
         
         $em->persist($compte1);
         $em->persist($compte2);
-        //$em->persist($transaction);
+        $em->persist($transaction);
         
         $em->flush();
         
-        return $this->render('MlTransactionBundle:Default:index.html.twig', array('compte1' => $compte1, 'compte2' => $compte2, 'transaction' => $transaction));
+        return $this->render('MlTransactionBundle:Default:index.html.twig', array('transaction' => $transaction));
     }
 }

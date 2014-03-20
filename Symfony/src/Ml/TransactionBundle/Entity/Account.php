@@ -90,7 +90,7 @@ class Account
      *
      * @return The transaction done or null
      */    
-    public function payment($target,$amount,$flag="") {
+    public function payment(&$target,$amount,$flag="") {
         
         $transaction = null;
         

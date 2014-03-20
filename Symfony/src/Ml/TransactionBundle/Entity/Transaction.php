@@ -46,23 +46,23 @@ class Transaction
      * @ORM\ManyToOne(targetEntity="Ml\TransactionBundle\Entity\Account",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-     private $debtor;
+     private $debitedAccount;
 
     /**
      * @ORM\ManyToOne(targetEntity="Ml\TransactionBundle\Entity\Account",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-     private $creditor;
+     private $creditedAccount;
 
     /**
      * Create a new transaction with parameters.
      */
-    public function __constructor($debtor,$creditor,$amount,$flag) {
-        $this->setDebtor($debtor);
-        $this->setCreditor($creditor);
+    public function __construct($debited,$credited,$amount,$flag) {
+        $this->setDebitedAccount($debited);
+        $this->setCreditedAccount($credited);
         $this->setAmount($amount);
         $this->setFlag($flag);
-        $this->setDate(time());
+        $this->setDate(new \DateTime());
     }
 
     /**
@@ -145,48 +145,48 @@ class Transaction
     }
 
     /**
-     * Set debtor
+     * Set DebitedAccount
      *
-     * @param \Ml\TransactionBundle\Entity\Account $debtor
+     * @param \Ml\TransactionBundle\Entity\Account $DebitedAccount
      * @return Transaction
      */
-    public function setDebtor(\Ml\TransactionBundle\Entity\Account $debtor)
+    public function setDebitedAccount(\Ml\TransactionBundle\Entity\Account $debitedAccount)
     {
-        $this->debtor = $debtor;
+        $this->debitedAccount = $debitedAccount;
 
         return $this;
     }
 
     /**
-     * Get debtor
+     * Get DebitedAccount
      *
      * @return \Ml\TransactionBundle\Entity\Account 
      */
-    public function getDebtor()
+    public function getDebitedAccount()
     {
-        return $this->debtor;
+        return $this->debitedAccount;
     }
 
     /**
-     * Set creditor
+     * Set CreditedAccount
      *
-     * @param \Ml\TransactionBundle\Entity\Account $creditor
+     * @param \Ml\TransactionBundle\Entity\Account $CreditedAccount
      * @return Transaction
      */
-    public function setCreditor(\Ml\TransactionBundle\Entity\Account $creditor)
+    public function setCreditedAccount(\Ml\TransactionBundle\Entity\Account $creditedAccount)
     {
-        $this->creditor = $creditor;
+        $this->creditedAccount = $creditedAccount;
 
         return $this;
     }
 
     /**
-     * Get creditor
+     * Get CreditedAccount
      *
      * @return \Ml\TransactionBundle\Entity\Account 
      */
-    public function getCreditor()
+    public function getCreditedAccount()
     {
-        return $this->creditor;
+        return $this->creditedAccount;
     }
 }
