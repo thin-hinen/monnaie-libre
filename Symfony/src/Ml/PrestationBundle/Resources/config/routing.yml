@@ -1,3 +1,15 @@
-ml_prestation_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: MlPrestationBundle:Default:index }
+ml_prestation_accueil:
+    pattern: /accueil_presta
+    defaults: { _controller: MlPrestationBundle:Prestation:index }
+
+ml_prestation_see:
+    pattern: /see_presta
+    defaults: { _controller: MlPrestationBundle:Prestation:see }
+
+ml_prestation_add:
+    pattern: /add_presta
+    defaults: { _controller: MlPrestationBundle:Prestation:index }
+
+ml_prestation_delete:
+    pattern: /delete_presta
+    defaults: { _controller: MlPrestationBundle:Prestation:delete }
