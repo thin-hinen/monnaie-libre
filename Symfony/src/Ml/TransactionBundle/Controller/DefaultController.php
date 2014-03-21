@@ -11,10 +11,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        $compte1 = new Account();
-        $compte2 = new Account();
-        $compte1->setAmount(100.0);
-        $compte2->setAmount(100.0);
+        $compte1 = new Account(100.0);
+        $compte2 = new Account(100.0);
         
         $transaction = ($compte1->payment($compte2,50,"Test"));
         

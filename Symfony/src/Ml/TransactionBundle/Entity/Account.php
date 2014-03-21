@@ -3,6 +3,7 @@
 namespace Ml\TransactionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ml\TransactionBundle\Exception\TransactionException;
 
 /**
  * Account
@@ -28,7 +29,17 @@ class Account
      */
     private $amount;
 
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="authorizedOverdraft", type="float")
+     */
+    private $authorizedOverdraft;
 
+    /*********************/
+    /***** ACCESSORS *****/
+    /*********************/
+    
     /**
      * Get id
      *
@@ -62,6 +73,42 @@ class Account
         return $this->amount;
     }
     
+    /**
+     * Set authorizedOverdraft
+     *
+     * @param float $authorizedOverdraft
+     * @return Account
+     */
+    public function setAuthorizedOverdraft($authorizedOverdraft)
+    {
+        $this->authorizedOverdraft = $authorizedOverdraft;
+
+        return $this;
+    }
+
+    /**
+     * Get authorizedOverdraft
+     *
+     * @return float 
+     */
+    public function getAuthorizedOverdraft()
+    {
+        return $this->authorizedOverdraft;
+    }
+    
+    /***********************/
+    /***** CONSTRUCTOR *****/
+    /***********************/
+    
+    public function __construct($amount=0.0,$authorizedOverdraft=0.0) {
+        /* Par défaut, aucun découvert n'est autorisé */
+        $this->amount = $amount;
+        $this->authorizedOverdraft = $authorizedOverdraft;
+    }
+    
+    /*******************/
+    /***** METHODS *****/
+    /*******************/
     
     /**
      * Credit the amount
@@ -80,6 +127,7 @@ class Account
      * @return float The new amount
      */
      private function withdraw($amount) {
+     
         $this->amount -= $amount;
         
         return $this->amount;
@@ -88,21 +136,20 @@ class Account
     /**
      * Pay another account
      *
-     * @return The transaction done or null
+     * @return The transaction done
      */    
     public function payment(&$target,$amount,$flag="") {
         
-        $transaction = null;
+        /* Test des préconditions : la cible existe, le montant est positif et le compte peut effectuer le paiement. */
+        if(get_class($target) != "Ml\TransactionBundle\Entity\Account") throw new \Exception("Invalid argument : ".get_class($target));
+        if($amount <= 0) throw new TransactionException("\$amount argument has to be positive.");
+        if($this->getAmount()-$amount < $this->authorizedOverdraft) throw new RefusedTransactionException("Insufficient fund.");
         
-        if($this->getAmount() >= $amount) {
-        
-            $this->withdraw($amount);
-            $target->pay($amount);
+        $this->withdraw($amount);
+        $target->pay($amount);
             
-            $transaction = new Transaction($this,$target,$amount,$flag);
-        }
-        
-        return $transaction;
-        
+        return new Transaction($this,$target,$amount,$flag);
+  
     }
+
 }
