@@ -1,0 +1,13 @@
+{% extends "MlUserBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Delete user account
+{% endblock %}
+	
+{% block user_body %}
+
+<h2>Do you want to leave, {{ user.firstName }}?</h2>
+
+{{ form }}
+
+{% endblock %}

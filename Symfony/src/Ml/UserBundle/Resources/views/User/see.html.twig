@@ -1,0 +1,51 @@
+{% extends "MlUserBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Profile of {{ user.login }}
+{% endblock %}
+	
+{% block user_body %}
+
+<nav>
+	<p><a href="#seeprofile">Profile</a></p>
+	<p><a href="#changepassword">Change Password</a></p>
+	<p><a href="#emails">Emails</a></p>
+	<p><a href="#status">Status</a></p>
+	<p><a href="#transactions">Transactions</a></p>
+	<p><a href="#notifications">Notifications</a></p>
+</nav>
+
+<h2 id="seeprofile">Profile</h2>
+
+<div>
+<p>Avatar: -</p>
+<p>Email: -</p>
+<p>First Name: {{ user.firstName }}</p>
+<p>Last Name: {{ user.lastName }}</p>
+<p>Birth Date: {{ user.dateNaissance }}</p>
+<p>Job Title: -</p>
+</div>
+
+<div><a href='{{ path('ml_user_delete') }}'>Delete my account</a></div>
+
+<h2 id="changepassword">Change Password</h2>
+
+<div>
+<p>New password</p>
+<p>Type again</p>
+</div>
+
+<h2 id="emails">Emails</h2>
+
+<h2 id="status">Status</h2>
+
+<div>
+<p>Premium: {{ user.premium }}</p>
+<p>Karma: {{ user.karma }}</p>
+</div>
+
+<h2 id="transactions">Transactions</h2>
+
+<h2 id="notifications">Notifications</h2>
+
+{% endblock %}
