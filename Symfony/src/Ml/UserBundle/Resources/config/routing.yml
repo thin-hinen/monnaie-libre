@@ -12,7 +12,7 @@ ml_user_see:
 
 ml_user_add:
     pattern: /add
-    defaults: { _controller: MlUserBundle:User:index }
+    defaults: { _controller: MlUserBundle:User:add }
 
 ml_user_delete:
     pattern: /delete
