@@ -30,6 +30,16 @@ git branch -d branche-a-couper
 \end{center}
 \end{frame}
 
+\begin{frame}{Fusionner des branches}
+\begin{center}
+\includegraphics[scale=0.3]{Goten-Trunks-Fusion-dragon-ball-all-fusion-33379377-855-482.png}
+
+git checkout branche-receptrice
+
+git merge branche-source
+\end{center}
+\end{frame}
+
 \begin{frame}{Identifiant de commit}
 \begin{center}
 \includegraphics[scale=0.12]{feuille-arbre2.jpg}
@@ -44,11 +54,13 @@ HEAD est le dernier commit de la branche actuelle
 
 \begin{frame}{Revenir en arrière}
 \begin{center}
-\includegraphics[scale=0.2]{retour-vers-le-futur-85-02-g.jpg}
+\includegraphics[scale=0.17]{retour-vers-le-futur-85-02-g.jpg}
 
 git reset --soft identifiant-du-commit (espace de travail inchangé)
 
 git reset --hard identifiant-du-commit
+
+git rebase --interactive identifiant-du-commit
 \end{center}
 \end{frame}
 
