@@ -268,4 +268,37 @@ class User
 	public function __construct(){
 		$this->karma=0;
 	}
+
+    /**
+     * Add prestations
+     *
+     * @param \Ml\PrestationBundle\Entity\Prestation $prestations
+     * @return User
+     */
+    public function addPrestation(\Ml\PrestationBundle\Entity\Prestation $prestations)
+    {
+        $this->prestations[] = $prestations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove prestations
+     *
+     * @param \Ml\PrestationBundle\Entity\Prestation $prestations
+     */
+    public function removePrestation(\Ml\PrestationBundle\Entity\Prestation $prestations)
+    {
+        $this->prestations->removeElement($prestations);
+    }
+
+    /**
+     * Get prestations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPrestations()
+    {
+        return $this->prestations;
+    }
 }

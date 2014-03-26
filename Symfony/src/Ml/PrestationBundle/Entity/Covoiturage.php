@@ -3,8 +3,6 @@
 namespace Ml\PrestationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ml\PrestationBundle\Entity\Prestation;
-
 
 /**
  * Covoiturage
@@ -12,7 +10,7 @@ use Ml\PrestationBundle\Entity\Prestation;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ml\PrestationBundle\Entity\CovoiturageRepository")
  */
-class Covoiturage extends Prestation
+class Covoiturage
 {
     /**
      * @var integer
@@ -21,7 +19,56 @@ class Covoiturage extends Prestation
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255)
+     */
+    private $titre;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="datetime")
+     */
+    private $dateCreation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="blob", nullable=true)
+     */
+    private $commentaire;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="signaler", type="boolean")
+     */
+    private $signaler;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visibilite", type="boolean")
+     */
+    private $visibilite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="villeDepart", type="string", length=255)
+     */
+    private $villeDepart;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="villeArrivee", type="string", length=255)
+     */
+    private $villeArrivee;
 
     /**
      * @var string
@@ -40,7 +87,7 @@ class Covoiturage extends Prestation
     /**
      * @var string
      *
-     * @ORM\Column(name="detours", type="string", length=255)
+     * @ORM\Column(name="detours", type="string", length=255, nullable=true)
      */
     private $detours;
 
@@ -52,30 +99,30 @@ class Covoiturage extends Prestation
     private $dateDepart;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="dureeEstimee", type="string", length=255)
+     * @ORM\Column(name="dureeEstimee", type="integer")
      */
     private $dureeEstimee;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="distanceEstimee", type="string", length=255)
+     * @ORM\Column(name="distanceEstimee", type="integer")
      */
     private $distanceEstimee;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="transportDeColis", type="string", length=255)
+     * @ORM\Column(name="transportDeColis", type="string", length=255, nullable=true)
      */
     private $transportDeColis;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="tailleDesBagages", type="string", length=255)
+     * @ORM\Column(name="tailleDesBagages", type="integer")
      */
     private $tailleDesBagages;
 
@@ -106,7 +153,18 @@ class Covoiturage extends Prestation
      * @ORM\Column(name="musique", type="boolean")
      */
     private $musique;
-
+	
+	/**
+   * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User")
+   */
+	private $users;
+	
+	public function __construct() {
+		$this->dateDepart = date_create(date('Y-m-d'));
+		$this->dateCreation = date_create(date('Y-m-d'));
+		$this->signaler = false;
+		$this->visibilite = true;
+	}
 
     /**
      * Get id
@@ -116,6 +174,177 @@ class Covoiturage extends Prestation
     public function getId()
     {
         return $this->id;
+    }
+	
+	// Getter et setter pour l'entité User
+	  public function setUsers(Ml\UserBundle\Entity\User $users)
+	  {
+		$this->users = $users;
+	  }
+	  public function getUsers()
+	  {
+		return $this->users;
+	  }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Covoiturage
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+    
+        return $this;
+    }
+
+    /**
+     * Get titre
+     *
+     * @return string 
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Covoiturage
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime 
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Covoiturage
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * Set signaler
+     *
+     * @param boolean $signaler
+     * @return Covoiturage
+     */
+    public function setSignaler($signaler)
+    {
+        $this->signaler = $signaler;
+    
+        return $this;
+    }
+
+    /**
+     * Get signaler
+     *
+     * @return boolean 
+     */
+    public function getSignaler()
+    {
+        return $this->signaler;
+    }
+
+    /**
+     * Set visibilite
+     *
+     * @param boolean $visibilite
+     * @return Covoiturage
+     */
+    public function setVisibilite($visibilite)
+    {
+        $this->visibilite = $visibilite;
+    
+        return $this;
+    }
+
+    /**
+     * Get visibilite
+     *
+     * @return boolean 
+     */
+    public function getVisibilite()
+    {
+        return $this->visibilite;
+    }
+
+    /**
+     * Set villeDepart
+     *
+     * @param string $villeDepart
+     * @return Covoiturage
+     */
+    public function setVilleDepart($villeDepart)
+    {
+        $this->villeDepart = $villeDepart;
+    
+        return $this;
+    }
+
+    /**
+     * Get villeDepart
+     *
+     * @return string 
+     */
+    public function getVilleDepart()
+    {
+        return $this->villeDepart;
+    }
+
+    /**
+     * Set villeArrivee
+     *
+     * @param string $villeArrivee
+     * @return Covoiturage
+     */
+    public function setVilleArrivee($villeArrivee)
+    {
+        $this->villeArrivee = $villeArrivee;
+    
+        return $this;
+    }
+
+    /**
+     * Get villeArrivee
+     *
+     * @return string 
+     */
+    public function getVilleArrivee()
+    {
+        return $this->villeArrivee;
     }
 
     /**
@@ -127,7 +356,7 @@ class Covoiturage extends Prestation
     public function setLieuRDV($lieuRDV)
     {
         $this->lieuRDV = $lieuRDV;
-
+    
         return $this;
     }
 
@@ -150,7 +379,7 @@ class Covoiturage extends Prestation
     public function setLieuDeDepose($lieuDeDepose)
     {
         $this->lieuDeDepose = $lieuDeDepose;
-
+    
         return $this;
     }
 
@@ -173,7 +402,7 @@ class Covoiturage extends Prestation
     public function setDetours($detours)
     {
         $this->detours = $detours;
-
+    
         return $this;
     }
 
@@ -196,7 +425,7 @@ class Covoiturage extends Prestation
     public function setDateDepart($dateDepart)
     {
         $this->dateDepart = $dateDepart;
-
+    
         return $this;
     }
 
@@ -213,20 +442,20 @@ class Covoiturage extends Prestation
     /**
      * Set dureeEstimee
      *
-     * @param string $dureeEstimee
+     * @param integer $dureeEstimee
      * @return Covoiturage
      */
     public function setDureeEstimee($dureeEstimee)
     {
         $this->dureeEstimee = $dureeEstimee;
-
+    
         return $this;
     }
 
     /**
      * Get dureeEstimee
      *
-     * @return string 
+     * @return integer 
      */
     public function getDureeEstimee()
     {
@@ -236,20 +465,20 @@ class Covoiturage extends Prestation
     /**
      * Set distanceEstimee
      *
-     * @param string $distanceEstimee
+     * @param integer $distanceEstimee
      * @return Covoiturage
      */
     public function setDistanceEstimee($distanceEstimee)
     {
         $this->distanceEstimee = $distanceEstimee;
-
+    
         return $this;
     }
 
     /**
      * Get distanceEstimee
      *
-     * @return string 
+     * @return integer 
      */
     public function getDistanceEstimee()
     {
@@ -265,7 +494,7 @@ class Covoiturage extends Prestation
     public function setTransportDeColis($transportDeColis)
     {
         $this->transportDeColis = $transportDeColis;
-
+    
         return $this;
     }
 
@@ -282,20 +511,20 @@ class Covoiturage extends Prestation
     /**
      * Set tailleDesBagages
      *
-     * @param string $tailleDesBagages
+     * @param integer $tailleDesBagages
      * @return Covoiturage
      */
     public function setTailleDesBagages($tailleDesBagages)
     {
         $this->tailleDesBagages = $tailleDesBagages;
-
+    
         return $this;
     }
 
     /**
      * Get tailleDesBagages
      *
-     * @return string 
+     * @return integer 
      */
     public function getTailleDesBagages()
     {
@@ -311,7 +540,7 @@ class Covoiturage extends Prestation
     public function setVehicule($vehicule)
     {
         $this->vehicule = $vehicule;
-
+    
         return $this;
     }
 
@@ -334,7 +563,7 @@ class Covoiturage extends Prestation
     public function setFumeur($fumeur)
     {
         $this->fumeur = $fumeur;
-
+    
         return $this;
     }
 
@@ -357,7 +586,7 @@ class Covoiturage extends Prestation
     public function setAnimaux($animaux)
     {
         $this->animaux = $animaux;
-
+    
         return $this;
     }
 
@@ -380,7 +609,7 @@ class Covoiturage extends Prestation
     public function setMusique($musique)
     {
         $this->musique = $musique;
-
+    
         return $this;
     }
 

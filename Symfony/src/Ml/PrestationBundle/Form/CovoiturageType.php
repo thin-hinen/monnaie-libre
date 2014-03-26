@@ -15,21 +15,42 @@ class CovoiturageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ville','text')
-            ->add('lieuRDV','text')
-            ->add('lieuDeDepose','text')
-            ->add('detours','text')
-            ->add('dateDepart','date')
-            ->add('dureeEstimee','text')
-            ->add('distanceEstimee','text')
-            ->add('transportDeColis','text')
-            ->add('tailleDesBagages','text')
-            ->add('vehicule','text')
-            ->add('fumeur','checkbox', array('required' => false))
-            ->add('animaux','checkbox', array('required' => false))
-            ->add('musique','checkbox', array('required' => false))
+            ->add('villeDepart','text')
+            ->add('lieuRDV','text', array (
+									'label' => 'Lieu de rendez-vous'))
+			->add('villeArrivee','text')
+            ->add('lieuDeDepose','text', array (
+									'label' => 'Lieu de dépose'))
+            ->add('detours','text', array (
+									'label' => 'Détours',
+									'required' => false))
+            ->add('dateDepart','date', array (
+									'label' => 'Date de départ'))
+            ->add('dureeEstimee','text', array (
+									'label' => 'Durée estimée (min)'))
+            ->add('distanceEstimee','text', array (
+									'label' => 'Distance estimée (km)'))
+            ->add('transportDeColis','text', array(
+									'required' => false))
+            ->add('tailleDesBagages','text', array(
+									'label' => 'Taille des bagages (kg)'))
+            ->add('vehicule','text', array (
+									'label' => 'Véhicule'))
+            ->add('fumeur','choice', array(
+									'choices' => array (
+										true => 'Oui',
+										false => 'Non')))
+            ->add('animaux','choice', array(
+									'choices' => array (
+										true => 'Oui',
+										false => 'Non')))
+            ->add('musique','choice', array(
+									'choices' => array (
+										true => 'Oui',
+										false => 'Non')))
             ->add('titre','text')
-            ->add('commentaire','textarea')
+            ->add('commentaire','textarea', array(
+									'required' => false))
             /*->add('dateCreation')
             ->add('signaler')
             ->add('visibilite')

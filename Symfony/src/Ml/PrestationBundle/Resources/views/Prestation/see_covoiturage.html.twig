@@ -1,0 +1,50 @@
+{% extends "MlPrestationBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Prestation - Covoiturage
+{% endblock %}
+	
+{% block prestation_body %}
+
+	{% if villeDepart is defined %}
+		<div class="well">
+				<h4 class = "prestation">Ville de départ :</h4> {{ villeDepart }} 
+				<h4 class = "prestation">Lieu de rendez-vous :</h4> {{ lieuRdv }}
+				<h4 class = "prestation">Ville d'arrivée :</h4> {{ villeArrivee }} 
+				<h4 class = "prestation">Lieu de dépose :</h4> {{ lieuDepose }} 
+				<h4 class = "prestation">Détours :</h4> {{ detours }} 
+				<h4 class = "prestation">Date de départ :</h4> {{ dateDepart }} 
+				<h4 class = "prestation">Durée estimée (min) :</h4> {{ dureeEstimee }} 
+				<h4 class = "prestation">Distance estimée (km) :</h4> {{ distanceEstimee }} 
+				<h4 class = "prestation">Transport de colis :</h4> {{ transportDeColis }} 
+				<h4 class = "prestation">Taille des bagages (kg) :</h4> {{ tailleDesBagages }} 
+				<h4 class = "prestation">Véhicule :</h4> {{ vehicule }} 
+				<h4 class = "prestation">Fumeur :</h4> 
+				{% if fumeur == true %} 
+					Oui
+				{% endif %}
+				{% if fumeur == false %} 
+					Non
+				{% endif %}
+				<h4 class = "prestation">Animaux :</h4> 
+				{% if animaux == true %} 
+					Oui
+				{% endif %}
+				{% if animaux == false %} 
+					Non
+				{% endif %}
+				<h4 class = "prestation">Musique :</h4> 
+				{% if musique == true %}
+					Oui
+				{% endif %}
+				{% if musique == false %}
+					Non
+				{% endif %}
+				<h4 class = "prestation">Titre :</h4> 
+				{{ titre }} 
+				<h4 class = "prestation">Commentaire :</h4> 
+				{{ commentaire }}
+		</div>
+	{% endif %}
+
+{% endblock %}

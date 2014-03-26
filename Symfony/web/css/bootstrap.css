@@ -7,6 +7,37 @@
  *
  * Designed and built with all the love in the world by @mdo and @fat.
  */
+ 
+ /* CSS PERSO */
+ 
+ /* CSS Prestation */
+ 
+ #ml_prestationbundle_covoiturage_villeDepart, #ml_prestationbundle_covoiturage_villeArrivee, #ml_prestationbundle_covoiturage_lieuRDV, #ml_prestationbundle_covoiturage_lieuDeDepose, #ml_prestationbundle_covoiturage_detours,
+ #ml_prestationbundle_covoiturage_dureeEstimee, #ml_prestationbundle_covoiturage_distanceEstimee, #ml_prestationbundle_covoiturage_transportDeColis, 
+ #ml_prestationbundle_covoiturage_tailleDesBagages, #ml_prestationbundle_covoiturage_vehicule, #ml_prestationbundle_covoiturage_fumeur, #ml_prestationbundle_covoiturage_animaux,
+ #ml_prestationbundle_covoiturage_musique, #ml_prestationbundle_covoiturage_titre, #ml_prestationbundle_covoiturage_commentaire {
+	margin-bottom: 20px;
+ }
+ 
+ #ml_prestationbundle_covoiturage_dateDepart_year, #ml_prestationbundle_covoiturage_dateDepart_month, #ml_prestationbundle_covoiturage_dateDepart_day {
+	margin-bottom: 20px;
+	margin-right: 20px;
+ }
+ 
+.Covoiturage #titre_formulaire {
+	margin-left: 300px;
+}
+
+.Covoiturage #form_validatation {
+	margin-left: 360px;
+}
+
+h4.prestation {
+	margin-top: 20px;
+}
+ 
+ 
+ /* CSS BOOTSTRAP à ne pas modifier */
 .clearfix {
   *zoom: 1;
 }
