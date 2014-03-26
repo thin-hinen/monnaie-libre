@@ -3,7 +3,7 @@ ml_user_homepage:
     defaults: { _controller: MlUserBundle:Default:index }
 
 ml_user_accueil:
-    pattern: /user/
+    pattern: /user
     defaults: { _controller: MlUserBundle:User:index }
 
 ml_user_see:
