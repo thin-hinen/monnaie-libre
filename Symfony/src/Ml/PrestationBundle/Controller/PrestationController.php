@@ -74,23 +74,16 @@ class PrestationController extends Controller
 		return $this->render('MlPrestationBundle:Prestation:add_covoiturage.html.twig', array('form' => $form->createView()));
 	}
 
-	public function deleteAction(Prestation $presta)
+	public function deleteCovoiturageAction(/*Prestation $presta*/)
 	{
-		$form=$this->createFormBuilder()->getForm();
-		$req = $this->getRequest();
-		if($req->getMethod() == 'POST'){
-			$form->bind($req);
-			if($form->isValid()){
-				$em=$this->getDoctrine()->getManager();
-				$em->remove($presta);
-				$em->flush();
+		$em=$this->getDoctrine()->getManager();
+		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('3');
+		
+		$em->remove($presta[0]);
+		$em->flush();
 
-				$this->get('session')->getFlashBag->add('supprimer','Votre prestation a été supprimé');
-				return $this->redirect($this->generateUrl('ml_presta_index'));
-			}
-		}
-		/** si le formulaire n'est pas valide, on le redemande*/
-		return $this->render('MlPrestationBundle:Prestation:delete.html.twig', array('presta'=>$presta,'form'=>$form->createView()));
+		//$this->get('session')->getFlashBag->add('supprimer','Votre prestation a été supprimé');
+		return $this->redirect($this->generateUrl('ml_prestation_homepage'));
 	}
 	
 }
