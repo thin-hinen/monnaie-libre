@@ -1,15 +1,15 @@
 ml_prestation_accueil:
-    pattern: /accueil_presta
+    pattern: /presta
     defaults: { _controller: MlPrestationBundle:Prestation:index }
 
 ml_prestation_see:
-    pattern: /see_presta
+    pattern: /presta/see
     defaults: { _controller: MlPrestationBundle:Prestation:see }
 
 ml_prestation_add:
-    pattern: /add_presta
+    pattern: /presta/add
     defaults: { _controller: MlPrestationBundle:Prestation:index }
 
 ml_prestation_delete:
-    pattern: /delete_presta
+    pattern: /presta/delete
     defaults: { _controller: MlPrestationBundle:Prestation:delete }
