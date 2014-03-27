@@ -17,7 +17,7 @@ abstract class Prestation
     * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User",inversedBy="prestation")
     * @ORM\JoinColumn(nullable=false)
      */
-    protected $user;
+    private $user;
 
     /**
      * @var integer
@@ -33,28 +33,28 @@ abstract class Prestation
      *
      * @ORM\Column(name="titre", type="string", length=255)
      */
-    protected $titre;
+    private $titre;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="datetime")
      */
-    protected $dateCreation;
+    private $dateCreation;
 
     /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text")
      */
-    protected $commentaire;
+    private $commentaire;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="signaler", type="integer")
      */
-    protected $signaler;
+    private $signaler;
 
     
 
@@ -63,7 +63,7 @@ abstract class Prestation
      *
      * @ORM\Column(name="visibilite", type="boolean")
      */
-    protected $visibilite;
+    private $visibilite;
 
 
     /**
@@ -213,4 +213,14 @@ abstract class Prestation
     {
         return $this->visibilite;
     }
+	
+		// Getter et setter pour l'entité User
+	  public function setUser(\Ml\UserBundle\Entity\User $user)
+	  {
+		$this->user = $user;
+	  }
+	  public function getUser()
+	  {
+		return $this->user;
+	  }
 }

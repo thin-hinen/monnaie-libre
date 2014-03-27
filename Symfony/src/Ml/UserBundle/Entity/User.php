@@ -17,7 +17,7 @@ class User
 	/**
      * @ORM\OneToMany(targetEntity="Ml\PrestationBundle\Entity\Prestation",mappedBy="user",cascade={"persist","remove"})
      */
-    protected $prestations;
+    //protected $prestations;
 
     /**
      * @var integer
@@ -31,7 +31,6 @@ class User
     /**
      * @var boolean
      *
-	 * @Assert\NotBlank()
      * @ORM\Column(name="premium", type="boolean")
      */
     private $premium;
@@ -39,7 +38,6 @@ class User
     /**
      * @var string
      *
-	 * @Assert\NotBlank()
      * @ORM\Column(name="lastName", type="string", length=255)
      */
     private $lastName;
@@ -47,7 +45,6 @@ class User
     /**
      * @var string
      *
-	 * @Assert\NotBlank()
      * @ORM\Column(name="firstName", type="string", length=255)
      */
     private $firstName;
@@ -55,7 +52,6 @@ class User
     /**
      * @var string
      *
-	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *			min="3",
 	 *			max="25",
@@ -69,7 +65,6 @@ class User
     /**
      * @var string
      *
-	 * @Assert\NotBlank()
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
@@ -88,6 +83,13 @@ class User
      * @ORM\Column(name="karma", type="integer")
      */
     private $karma;
+	
+	public function __construct() {
+		$this->karma = 0;
+		$this->dateNaissance = date_create(date('Y-m-d'));
+		$this->premium = false;
+		$this->prestation = null;
+	}
 
 
     /**
@@ -261,11 +263,36 @@ class User
         return $this->karma;
     }
 
-
-	/**
-	 * User constructor
+    /**
+     * Add prestations
+     *
+     * @param \Ml\PrestationBundle\Entity\Prestation $prestations
+     * @return User
      */
-	public function __construct(){
-		$this->karma=0;
-	}
+    /*public function addPrestation(\Ml\PrestationBundle\Entity\Prestation $prestations)
+    {
+        $this->prestations = $prestations;
+    
+        return $this;
+    }*/
+
+    /**
+     * Remove prestations
+     *
+     * @param \Ml\PrestationBundle\Entity\Prestation $prestations
+     */
+   /* public function removePrestation(\Ml\PrestationBundle\Entity\Prestation $prestations)
+    {
+        $this->prestations->removeElement($prestations);
+    }*/
+
+    /**
+     * Get prestations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    /*public function getPrestations()
+    {
+        return $this->prestations;
+    }*/
 }

@@ -5,6 +5,8 @@ namespace Ml\PrestationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Ml\PrestationBundle\Entity\Prestation;
+use Ml\PrestationBundle\Entity\Covoiturage;
+use Ml\PrestationBundle\Form\CovoiturageType;
 
 class PrestationController extends Controller
 {
@@ -12,30 +14,46 @@ class PrestationController extends Controller
 	public function indexAction()
 	{
 		/** Récupération de toutes les prestations du site **/
-		$presta = $this->getDoctrine()->getManager()->getRepository('MlPrestationBundle:Prestation')->findAll();
+		$presta = $this->getDoctrine()->getManager()->getRepository('MlPrestationBundle:Covoiturage')->findAll();
 
 		return $this->render('MlPrestationBundle:Prestation:index.html.twig',array('presta'=>$presta));
 	}	
 
-	public function seeAction()
+	public function seeCovoiturageAction()
 	{
 		$em=$this->getDoctrine()->getManager();
-		$presta=$em->getRepository('MlPrestationBundle:Prestation')->find($id);
+		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('1');
 		
 		/** Si la prestation demandée n'existe pas **/
-		if($presta === null){
-			throw $this->createNotFoundException('La prestation [id'.$id.'] n\'est pas renseigné dans notre base de données');
+		if(empty($presta) === true){
+			//throw $this->createNotFoundException('Le covoiturage [id'.$id.'] n\'est pas renseigné dans notre base de données');
+			throw $this->createNotFoundException('Le covoiturage n\'est pas renseigné dans notre base de données');
 		}
 		
 		/** Si elle existe, elle est envoyée à la vue **/
-		return $this->render('MlPrestationBundle:Prestation:seePresta.html.twig',array('presta'=>$presta));
+		return $this->render('MlPrestationBundle:Prestation:see_covoiturage.html.twig', array('villeDepart' => $presta[0]->getVilleDepart(),
+																							'villeArrivee' => $presta[0]->getVilleArrivee(),
+																							'lieuRdv' => $presta[0]->getLieuRDV(),
+																							'lieuDepose' => $presta[0]->getLieuDeDepose(),
+																							'detours' => $presta[0]->getDetours(),
+																							'dateDepart' => $presta[0]->getDateDepart()->format("d/m/y"),
+																							'dureeEstimee' => $presta[0]->getDureeEstimee(),
+																							'distanceEstimee' => $presta[0]->getDistanceEstimee(),
+																							'transportDeColis' => $presta[0]->getTransportDeColis(),
+																							'tailleDesBagages' => $presta[0]->getTailleDesBagages(),
+																							'vehicule' => $presta[0]->getVehicule(),
+																							'fumeur' => $presta[0]->getFumeur(),
+																							'musique' => $presta[0]->getMusique(),
+																							'animaux' => $presta[0]->getAnimaux(),
+																							'titre' => $presta[0]->getTitre(),
+																							'commentaire' => $presta[0]->getCommentaire()));
 
 	}
 	
-	public function addAction(){
-		$presta = new Prestation;
+	public function addCovoiturageAction(){
+		$covoiturage = new Covoiturage;
 		
-		$form = $this->createForm(new Prestation(),$presta);
+		$form = $this->createForm(new CovoiturageType(),$covoiturage);
 
 		$req=$this->getRequest();
 		if($req->getMethod() == 'POST'){
@@ -44,35 +62,28 @@ class PrestationController extends Controller
 
 			if($form->isValid()){
 				$em=$this->getDoctrine()->getManager();
-				$em->persist($presta);
-				$em->flush;
-
-				$this->get('session')->getFlashBag->add('ajouter','Votre prestation est ajoutée');
-
-				return $this->redirect($this->generateUrl('ml_presta_see',array('id'=>$presta->getId())));
-			}
-		}
-		/** si le formulaire n'est pas valide, on le redemande*/
-		return $this->render('MlPrestationBundle:Prestation:addPresta.html.twig', array('form'=>$form->createView()));
-	}
-
-	public function deleteAction(Prestation $presta)
-	{
-		$form=$this->createFormBuilder()->getForm();
-		$req = $this->getRequest();
-		if($req->getMethod() == 'POST'){
-			$form->bind($req);
-			if($form->isValid()){
-				$em=$this->getDoctrine()->getManager();
-				$em->remove($presta);
+				$em->persist($covoiturage);
 				$em->flush();
 
-				$this->get('session')->getFlashBag->add('supprimer','Votre prestation a été supprimé');
-				return $this->redirect($this->generateUrl('ml_presta_index'));
+				//$this->get('session')->getFlashBag->add('ajouter', 'Votre prestation est ajoutée');
+
+				return $this->redirect($this->generateUrl('ml_prestation_see_covoiturage'));
 			}
 		}
 		/** si le formulaire n'est pas valide, on le redemande*/
-		return $this->render('MlPrestationBundle:Prestation:delete.html.twig', array('presta'=>$presta,'form'=>$form->createView()));
+		return $this->render('MlPrestationBundle:Prestation:add_covoiturage.html.twig', array('form' => $form->createView()));
+	}
+
+	public function deleteCovoiturageAction(/*Prestation $presta*/)
+	{
+		$em=$this->getDoctrine()->getManager();
+		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('3');
+		
+		$em->remove($presta[0]);
+		$em->flush();
+
+		//$this->get('session')->getFlashBag->add('supprimer','Votre prestation a été supprimé');
+		return $this->redirect($this->generateUrl('ml_prestation_homepage'));
 	}
 	
 }

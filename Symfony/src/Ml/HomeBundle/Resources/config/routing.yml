@@ -1,0 +1,4 @@
+ml_home_homepage:
+    pattern: /
+    defaults: { _controller: MlHomeBundle:Home:index }
+

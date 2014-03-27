@@ -1,15 +1,15 @@
-ml_prestation_accueil:
-    pattern: /presta
+ml_prestation_homepage:
+    pattern: /prestation
     defaults: { _controller: MlPrestationBundle:Prestation:index }
 
-ml_prestation_see:
-    pattern: /presta/see
-    defaults: { _controller: MlPrestationBundle:Prestation:see }
+ml_prestation_see_covoiturage:
+    pattern: /prestation/see/covoiturage
+    defaults: { _controller: MlPrestationBundle:Prestation:seeCovoiturage }
 
-ml_prestation_add:
-    pattern: /presta/add
-    defaults: { _controller: MlPrestationBundle:Prestation:index }
+ml_prestation_add_covoiturage:
+    pattern: /prestation/add/covoiturage
+    defaults: { _controller: MlPrestationBundle:Prestation:addCovoiturage }
 
-ml_prestation_delete:
-    pattern: /presta/delete
-    defaults: { _controller: MlPrestationBundle:Prestation:delete }
+ml_prestation_delete_covoiturage:
+    pattern: /prestation/delete/covoiturage
+    defaults: { _controller: MlPrestationBundle:Prestation:deleteCovoiturage }

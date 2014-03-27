@@ -16,12 +16,16 @@ class UserType extends AbstractType
     {
         $builder
             //->add('premium','boolean')
-            ->add('lastName','text')
-            ->add('firstName','text')
-            ->add('login','text')
-            ->add('password','text')
-            ->add('dateNaissance','date')
-            ->add('karma','integer')
+            ->add('lastName','text', array(
+											'label' => 'Nom'))
+            ->add('firstName','text', array(
+											'label' => 'Prénom'))
+			->add('dateNaissance','birthday', array(
+											'label' => 'Date de naissance'))
+            ->add('login','text', array(
+											'label' => 'Pseudo'))
+            ->add('password','password', array(
+											'label' => 'Mot de passe'))
         ;
     }
     

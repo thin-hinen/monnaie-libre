@@ -1,8 +1,4 @@
 ml_user_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: MlUserBundle:Default:index }
-
-ml_user_accueil:
     pattern: /user
     defaults: { _controller: MlUserBundle:User:index }
 

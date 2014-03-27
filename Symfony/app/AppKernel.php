@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Ml\UserBundle\MlUserBundle(),
             new Ml\PrestationBundle\MlPrestationBundle(),
             new Ml\TransactionBundle\MlTransactionBundle(),
+            new Ml\HomeBundle\MlHomeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
