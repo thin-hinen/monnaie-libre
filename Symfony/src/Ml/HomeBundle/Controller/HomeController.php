@@ -8,6 +8,12 @@ class HomeController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('MlHomeBundle:Home:index.html.twig');
+		// On récupère la requête
+		$req = $this->get('request');
+		$session = $req->getSession();		
+		$u = $session->get('utilisateur');
+	
+        return $this->render('MlHomeBundle:Home:index.html.twig', array(
+		  'utilisateur' => $u));
     }
 }
