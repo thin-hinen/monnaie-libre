@@ -16,6 +16,10 @@ class UserController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
 		/** Récupération de tout les users du site **/
 		$users = $this->getDoctrine()->getManager()->getRepository('MlUserBundle:User')->findAll();
@@ -30,6 +34,10 @@ class UserController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
 		$em=$this->getDoctrine()->getManager();
 		$user=$em->getRepository('MlUserBundle:User')->findByLogin($u);
@@ -56,6 +64,10 @@ class UserController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u != NULL) {
+			return $this->redirect($this->generateUrl('ml_home_homepage'));
+		}
 	
 		$user = new User;
 		
@@ -86,6 +98,10 @@ class UserController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
 		$form=$this->createFormBuilder()->getForm();
 
@@ -143,7 +159,7 @@ class UserController extends Controller
 
 		$session->invalidate();
 		
-		return $this->render('MlUserBundle:User:index.html.twig');
+		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
 
 }

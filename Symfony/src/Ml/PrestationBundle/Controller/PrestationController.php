@@ -18,6 +18,10 @@ class PrestationController extends Controller
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
 		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+		
 		/** Récupération de toutes les prestations du site **/
 		$presta = $this->getDoctrine()->getManager()->getRepository('MlPrestationBundle:Covoiturage')->findAll();
 
@@ -31,6 +35,10 @@ class PrestationController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
 		$em=$this->getDoctrine()->getManager();
 		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('1');
@@ -67,6 +75,10 @@ class PrestationController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
 		$covoiturage = new Covoiturage;
 		
@@ -98,6 +110,10 @@ class PrestationController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
 		$em=$this->getDoctrine()->getManager();
 		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('3');

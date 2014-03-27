@@ -13,6 +13,10 @@ class TransactionController extends Controller
 		$req = $this->get('request');
 		$session = $req->getSession();		
 		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 	
         $em = $this->getDoctrine()->getManager();
         
