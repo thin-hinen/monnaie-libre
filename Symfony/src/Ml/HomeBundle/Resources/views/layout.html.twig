@@ -12,32 +12,32 @@
 		<br>
 		<div>
 			<ul class="nav nav-pills nav-stacked">
-				<li><button class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Accueil</a></button>&nbsp;&nbsp;
-				<button class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Services</a></button>&nbsp;&nbsp;
-				<button class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Groupes</a></button>&nbsp;&nbsp;
+				<li><button style="margin-right: 5px" class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Accueil</a></button>
+				<button style="margin-right: 5px" class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Services</a></button>
+				<button style="margin-right: 5px" class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Groupes</a></button>
 				<button class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Forum</a></button>
 				{% if utilisateur is not defined %}
 					<form action="{{ path('ml_user_connexion') }}" method="post">
 						<span style = "float: right; margin-top: 10px;">Pseudo 
-						<input class="input-mini" type="text" id="login" name="login" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input style="margin-right: 10px" class="input-mini" type="text" id="login" name="login" />
 						Mot de passe 
-						<input class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input style="margin-right: 10px" class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />
 						<button class="btn btn-primary btn-mini" type="submit">Connexion <i class="icon-white icon-ok-sign"></i> </button></span>
 					</form>
 				{% endif %}
 				{% if utilisateur is defined %}
 					{% if utilisateur != NULL %}
 						<form action="{{ path('ml_user_deconnexion') }}" method="post">
-							<span style = "float: right; margin-top: 10px;"><b>{{ utilisateur }}</b>&nbsp;&nbsp;
-							<button class="btn btn-primary btn-mini" type="submit">Déconnexion <i class="icon-white icon-ok-sign"></i> </button></span>
+							<span style = "float: right; margin-top: 10px;"><b>{{ utilisateur }}</b>
+							<button style="margin-left: 10px" class="btn btn-primary btn-mini" type="submit">Déconnexion <i class="icon-white icon-ok-sign"></i> </button></span>
 						</form>
 					{% endif %}
 					{% if utilisateur == NULL %}
 						<form action="{{ path('ml_user_connexion') }}" method="post">
 							<span style = "float: right; margin-top: 10px;">Pseudo 
-							<input class="input-mini" type="text" id="login" name="login" />&nbsp;&nbsp;&nbsp;&nbsp;
+							<input style="margin-right: 5px" class="input-mini" type="text" id="login" name="login" />
 							Mot de passe 
-							<input class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />&nbsp;&nbsp;&nbsp;&nbsp;
+							<input style="margin-right: 5px" class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />
 							<button class="btn btn-primary btn-mini" type="submit">Connexion <i class="icon-white icon-ok-sign"></i> </button></span>
 						</form>
 					{% endif %}

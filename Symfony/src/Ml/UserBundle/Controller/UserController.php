@@ -74,6 +74,17 @@ class UserController extends Controller
 		$form = $this->createForm(new UserType(),$user);
 
 		if($req->getMethod() == 'POST'){
+			$utilisateur_existe_deja = $this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($req->request->get("form")['login']);
+			
+			if($utilisateur_existe_deja == NULL) {
+				return $this->render('MlUserBundle:User:add.html.twig', array(
+					  'form' => $form->createView(),
+					  'utilisateur' => $u,
+					  'erreur' => "Le login saisi est déjà pris, veuillez en choisir un autre"));
+			}
+		
 			/**lien requête<->formulaire**/
 			$form->bind($req);
 
@@ -135,7 +146,7 @@ class UserController extends Controller
 						->findBy(array('login' => $request->request->get('login'),
 										'password' => $request->request->get('mot_de_passe')));
 		
-			if ($utilisateur != NULL) {		
+			if ($utilisateur != NULL) {
 				$session = new Session();
 				$session->start();
 			
@@ -145,7 +156,7 @@ class UserController extends Controller
 					'utilisateur' => $session->get('utilisateur')));
 			}
 			else {
-				return $this->render('MlUserBundle:User:index.html.twig');
+				return $this->redirect($this->generateUrl('ml_user_add'));
 			}
 		}
 	
