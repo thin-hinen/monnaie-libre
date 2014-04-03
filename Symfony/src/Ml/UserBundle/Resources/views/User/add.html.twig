@@ -6,6 +6,10 @@
 	
 {% block user_body %}
 
+	{% if erreur is defined %}
+		<h5 style="color:red">{{ erreur }}</h5>
+	{% endif %}
+
 	{% if form is defined %}
 		<table class="table">
 			<tr>

@@ -13,14 +13,33 @@ class PrestationController extends Controller
 
 	public function indexAction()
 	{
+		// On récupère la requête
+		$req = $this->get('request');
+		$session = $req->getSession();		
+		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+		
 		/** Récupération de toutes les prestations du site **/
 		$presta = $this->getDoctrine()->getManager()->getRepository('MlPrestationBundle:Covoiturage')->findAll();
 
-		return $this->render('MlPrestationBundle:Prestation:index.html.twig',array('presta'=>$presta));
+		return $this->render('MlPrestationBundle:Prestation:index.html.twig',array('presta'=>$presta,
+		  'utilisateur' => $u));
 	}	
 
 	public function seeCovoiturageAction()
 	{
+		// On récupère la requête
+		$req = $this->get('request');
+		$session = $req->getSession();		
+		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+	
 		$em=$this->getDoctrine()->getManager();
 		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('1');
 		
@@ -46,16 +65,26 @@ class PrestationController extends Controller
 																							'musique' => $presta[0]->getMusique(),
 																							'animaux' => $presta[0]->getAnimaux(),
 																							'titre' => $presta[0]->getTitre(),
-																							'commentaire' => $presta[0]->getCommentaire()));
+																							'commentaire' => $presta[0]->getCommentaire(),
+																							'utilisateur' => $u));
 
 	}
 	
 	public function addCovoiturageAction(){
+		// On récupère la requête
+		$req = $this->get('request');
+		$session = $req->getSession();		
+		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+	
 		$covoiturage = new Covoiturage;
 		
 		$form = $this->createForm(new CovoiturageType(),$covoiturage);
 
-		$req=$this->getRequest();
+
 		if($req->getMethod() == 'POST'){
 			/**lien requête<->formulaire**/
 			$form->bind($req);
@@ -71,11 +100,21 @@ class PrestationController extends Controller
 			}
 		}
 		/** si le formulaire n'est pas valide, on le redemande*/
-		return $this->render('MlPrestationBundle:Prestation:add_covoiturage.html.twig', array('form' => $form->createView()));
+		return $this->render('MlPrestationBundle:Prestation:add_covoiturage.html.twig', array('form' => $form->createView(),
+		  'utilisateur' => $u));
 	}
 
 	public function deleteCovoiturageAction(/*Prestation $presta*/)
 	{
+		// On récupère la requête
+		$req = $this->get('request');
+		$session = $req->getSession();		
+		$u = $session->get('utilisateur');
+		
+		if ($u == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+	
 		$em=$this->getDoctrine()->getManager();
 		$presta=$em->getRepository('MlPrestationBundle:Covoiturage')->findById('3');
 		
