@@ -12,7 +12,7 @@ class TransactionController extends Controller
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
-		$u = $session->get('utilisateur');
+		$u = $session->get('user');
 		
 		if ($u == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
@@ -32,6 +32,6 @@ class TransactionController extends Controller
         $em->flush();
         
         return $this->render('MlTransactionBundle:Transaction:index.html.twig', array('transaction' => $transaction,
-			'utilisateur' => $u));
+			'user' => $u));
     }
 }
