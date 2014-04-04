@@ -11,13 +11,13 @@ class HomeController extends Controller
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
-		$u = $session->get('utilisateur');
+		$u = $session->get('user');
 		
 		if ($u == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 	
         return $this->render('MlHomeBundle:Home:index.html.twig', array(
-		  'utilisateur' => $u));
+		  'user' => $u));
     }
 }

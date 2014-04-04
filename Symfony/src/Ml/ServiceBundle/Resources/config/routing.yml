@@ -1,0 +1,15 @@
+ml_service_homepage:
+    pattern: /service
+    defaults: { _controller: MlServiceBundle:Service:index }
+
+ml_service_see_carpooling:
+    pattern: /service/see/carpooling/{carpooling}
+    defaults: { _controller: MlServiceBundle:Service:seeCarpooling, carpooling: null }
+
+ml_service_add_carpooling:
+    pattern: /service/add/carpooling
+    defaults: { _controller: MlServiceBundle:Service:addCarpooling }
+
+ml_service_delete_carpooling:
+    pattern: /service/delete/carpooling
+    defaults: { _controller: MlServiceBundle:Service:deleteCarpooling }

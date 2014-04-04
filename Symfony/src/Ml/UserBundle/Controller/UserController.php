@@ -15,7 +15,7 @@ class UserController extends Controller
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
-		$u = $session->get('utilisateur');
+		$u = $session->get('user');
 		
 		if ($u == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
@@ -25,7 +25,7 @@ class UserController extends Controller
 		$users = $this->getDoctrine()->getManager()->getRepository('MlUserBundle:User')->findAll();
 
 		return $this->render('MlUserBundle:User:index.html.twig', array('users'=>$users,
-		  'utilisateur' => $u));
+		  'user' => $u));
 	}	
 
 	public function seeAction()
@@ -33,7 +33,7 @@ class UserController extends Controller
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
-		$u = $session->get('utilisateur');
+		$u = $session->get('user');
 		
 		if ($u == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
@@ -42,10 +42,10 @@ class UserController extends Controller
 		$em=$this->getDoctrine()->getManager();
 		$user=$em->getRepository('MlUserBundle:User')->findByLogin($u);
 		
-		/** Si l'utilisateur demandé n'existe pas **/
+		/** Si l'user demandé n'existe pas **/
 		if($user === null){
-			//throw $this->createNotFoundException('L\'utilisateur [id'.$id.'] n\'est pas renseigné dans notre base de données');
-			throw $this->createNotFoundException('L\'utilisateur 2 n\'est pas renseigné dans notre base de données');
+			//throw $this->createNotFoundException('L\'user [id'.$id.'] n\'est pas renseigné dans notre base de données');
+			throw $this->createNotFoundException('L\'user 2 n\'est pas renseigné dans notre base de données');
 		}
 		
 		/** S'il existe, il est envoyé à la vue **/
@@ -55,7 +55,7 @@ class UserController extends Controller
 																	'dateNaissance' => $user[0]->getDateNaissance()->format("d/m/y"),
 																	'karma' => $user[0]->getKarma(),
 																	'premium' => $user[0]->getPremium(),
-																	'utilisateur' => $u));
+																	'user' => $u));
 
 	}
 	
@@ -63,7 +63,7 @@ class UserController extends Controller
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
-		$u = $session->get('utilisateur');
+		$u = $session->get('user');
 		
 		if ($u != NULL) {
 			return $this->redirect($this->generateUrl('ml_home_homepage'));
@@ -74,14 +74,14 @@ class UserController extends Controller
 		$form = $this->createForm(new UserType(),$user);
 
 		if($req->getMethod() == 'POST'){
-			$utilisateur_existe_deja = $this->getDoctrine()
+			$user_existe_deja = $this->getDoctrine()
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($req->request->get("form")['login']);
 			
-			if($utilisateur_existe_deja == NULL) {
+			if($user_existe_deja == NULL) {
 				return $this->render('MlUserBundle:User:add.html.twig', array(
 					  'form' => $form->createView(),
-					  'utilisateur' => $u,
+					  'user' => $u,
 					  'erreur' => "Le login saisi est déjà pris, veuillez en choisir un autre"));
 			}
 		
@@ -100,7 +100,7 @@ class UserController extends Controller
 		}
 		/** si le formulaire n'est pas valide, on le redemande*/
 		return $this->render('MlUserBundle:User:add.html.twig', array('form' => $form->createView(),
-																	'utilisateur' => $u));
+																	'user' => $u));
 	}
 
 	public function deleteAction(User $user)
@@ -108,7 +108,7 @@ class UserController extends Controller
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
-		$u = $session->get('utilisateur');
+		$u = $session->get('user');
 		
 		if ($u == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
@@ -132,7 +132,7 @@ class UserController extends Controller
 		/** si le formulaire n'est pas valide, on le redemande*/
 		return $this->render('MlUserBundle:User:delete.html.twig', array('user'=>$user, 
 																		'form'=>$form->createView(),
-																		'utilisateur' => $u));
+																		'user' => $u));
 	}
 	
 	public function connexionAction() {
@@ -141,19 +141,19 @@ class UserController extends Controller
 
 		// On vérifie qu'elle est de type POST
 		if ($request->getMethod() == 'POST') {
-			$utilisateur = $this->getDoctrine()
+			$user = $this->getDoctrine()
 						->getRepository('MlUserBundle:User')
 						->findBy(array('login' => $request->request->get('login'),
 										'password' => $request->request->get('mot_de_passe')));
 		
-			if ($utilisateur != NULL) {
+			if ($user != NULL) {
 				$session = new Session();
 				$session->start();
 			
-				$session->set('utilisateur', $request->request->get('login')); 
+				$session->set('user', $request->request->get('login')); 
 				
 				return $this->render('MlUserBundle:User:index.html.twig', array(
-					'utilisateur' => $session->get('utilisateur')));
+					'user' => $session->get('user')));
 			}
 			else {
 				return $this->redirect($this->generateUrl('ml_user_add'));

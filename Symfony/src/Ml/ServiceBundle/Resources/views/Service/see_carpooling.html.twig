@@ -1,0 +1,57 @@
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - See - Carpooling
+{% endblock %}
+	
+{% block service_body %}
+
+	{% if departure is defined %}
+		<div class="well">
+				<h4 class = "service">Creator :</h4> {{ creator }}
+				<h4 class = "service">Creation Date :</h4> {{ creationDate }}
+				<h4 class = "service">Title :</h4> {{ title }} 
+				<h4 class = "service">Comment :</h4> 
+				{% if comment is null %} 
+					No comment 
+				{% endif %} 
+				{% if comment is null %} 
+					{{ comment }}
+				{% endif %}
+				<h4 class = "service">Price :</h4> {{ price }} €
+				<h4 class = "service">Departure :</h4> {{ departure }} 
+				<h4 class = "service">Meeting Point :</h4> {{ meetingPoint }}
+				<h4 class = "service">Arrival :</h4> {{ arrival }} 
+				<h4 class = "service">Arrival Point :</h4> {{ arrivalPoint }} 
+				<h4 class = "service">Bends :</h4> {{ bends }} 
+				<h4 class = "service">Departure Date :</h4> {{ departureDate }} 
+				<h4 class = "service">Estimated Duration (min) :</h4> {{ estimatedDuration }} 
+				<h4 class = "service">Estimated Distance (km) :</h4> {{ estimatedDistance }} 
+				<h4 class = "service">Package Transport :</h4> {{ packageTransport }} 
+				<h4 class = "service">Package Size (kg) :</h4> {{ packageSize }} 
+				<h4 class = "service">Car :</h4> {{ car }} 
+				<h4 class = "service">Smoker :</h4> 
+				{% if smoker == true %} 
+					Oui
+				{% endif %}
+				{% if smoker == false %} 
+					Non
+				{% endif %}
+				<h4 class = "service">Pets :</h4> 
+				{% if pets == true %} 
+					Oui
+				{% endif %}
+				{% if pets == false %} 
+					Non
+				{% endif %}
+				<h4 class = "service">Music :</h4> 
+				{% if music == true %}
+					Oui
+				{% endif %}
+				{% if music == false %}
+					Non
+				{% endif %}
+		</div>
+	{% endif %}
+
+{% endblock %}

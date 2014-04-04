@@ -10,31 +10,41 @@
  
  /* CSS PERSO */
  
- /* CSS Prestation */
+ /* CSS Service */
  
- .Covoiturage #ml_prestationbundle_covoiturage_villeDepart, #ml_prestationbundle_covoiturage_villeArrivee, #ml_prestationbundle_covoiturage_lieuRDV, #ml_prestationbundle_covoiturage_lieuDeDepose, #ml_prestationbundle_covoiturage_detours,
- #ml_prestationbundle_covoiturage_dureeEstimee, #ml_prestationbundle_covoiturage_distanceEstimee, #ml_prestationbundle_covoiturage_transportDeColis, 
- #ml_prestationbundle_covoiturage_tailleDesBagages, #ml_prestationbundle_covoiturage_vehicule, #ml_prestationbundle_covoiturage_fumeur, #ml_prestationbundle_covoiturage_animaux,
- #ml_prestationbundle_covoiturage_musique, #ml_prestationbundle_covoiturage_titre, #ml_prestationbundle_covoiturage_commentaire {
+ .Carpooling #ml_servicebundle_carpooling_departure, #ml_servicebundle_carpooling_arrival, #ml_servicebundle_carpooling_meetingPoint, 
+ #ml_servicebundle_carpooling_arrivalPoint, #ml_servicebundle_carpooling_bends,
+ #ml_servicebundle_carpooling_estimatedDuration, #ml_servicebundle_carpooling_estimatedDistance, #ml_servicebundle_carpooling_packageTransport, 
+ #ml_servicebundle_carpooling_packageSize, #ml_servicebundle_carpooling_car, #ml_servicebundle_carpooling_smoker, #ml_servicebundle_carpooling_pets,
+ #ml_servicebundle_carpooling_music, #ml_servicebundle_carpooling_title, #ml_servicebundle_carpooling_comment {
 	margin-bottom: 20px;
  }
  
- .Covoiturage #ml_prestationbundle_covoiturage_dateDepart_year, #ml_prestationbundle_covoiturage_dateDepart_month, #ml_prestationbundle_covoiturage_dateDepart_day {
+ .Carpooling #ml_servicebundle_carpooling_departureDate_year, #ml_servicebundle_carpooling_departureDate_month, #ml_servicebundle_carpooling_departureDate_day {
 	margin-bottom: 20px;
 	margin-right: 20px;
  }
  
-.Covoiturage #titre_formulaire {
+.Carpooling #title_form {
 	margin-left: 300px;
 }
 
-.Covoiturage #form_validatation {
+.Carpooling #form_validatation {
 	margin-left: 360px;
 }
 
-h4.prestation {
+h4.service {
 	margin-top: 20px;
 }
+
+.liste_services { 
+  cursor: pointer;
+ }
+ 
+.liste_services:hover 
+{ 
+   background-color: lightblue; 
+} 
 
  /* CSS User */
  
@@ -51,7 +61,7 @@ form {
 	margin-right: 20px;
  }
  
- .User #titre_formulaire {
+ .User #title_form {
 	margin-left: 300px;
 }
 

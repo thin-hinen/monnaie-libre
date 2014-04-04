@@ -1,0 +1,91 @@
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - List
+{% endblock %}
+	
+{% block service_body %}
+	<table class="table">
+		<legend><b>Services list</b></legend>
+		<tr>
+			<td>
+				<div class="well">
+					<center>
+						<h4><b>Filtrer</b></h4><br>
+						<form action="{{ path('ml_service_homepage') }}" method="post">
+							Type
+							<select style = "height:65px; margin-left:15px;" multiple name="type[]">
+								<option value = "carpooling">Carpooling</option>
+							</select><br><br>
+							<button class="btn btn-primary btn-mini" type="submit">Valider <i class="icon-white icon-ok-sign"></i> </button>
+						</form>
+					</center>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="well">
+					{% if servicess is defined %}
+						{% if servicess is not null %}
+							<table>
+								<tr>
+									<td>
+										<center><b>Title</b></center>
+									</td>
+									<td>
+										<center><b>Creator</b></center>
+									</td>
+									<td>
+										<center><b>Comment</b></center>
+									</td>
+									<td>
+										<center><b>Creation date</b></center>
+									</td>
+									<td>
+										<center><b>Price</b></center>
+									</td>
+									<td>
+										<center><b>Type</b></center>
+									</td>
+									
+								</tr>
+								{% for services in servicess %}
+									{% for service in services %}
+										<tr class = "liste_services" onclick="document.location.href='./service/see/carpooling/{{ service.id }}'">
+												<td>
+													<center>{{ service.title }}</a></center>
+												</td>
+												<td>
+													<center>{{ service.user.login }}</a></center>
+												</td>
+												{% if service.comment is not null %}
+													<td>
+														<center>{{ service.comment }} </center>
+													</td>
+												{% endif %}
+												{% if service.comment is null %}
+													<td>
+														<center>No comment </center>
+													</td>
+												{% endif %}
+												<td>
+													<center>{{ service.creationDate|date("d/m/y") }}</center>
+												</td>
+												<td>
+													<center>{{ service.price }} €</a></center>
+												</td>
+												<td>
+													<center>{{ service.type }}</a></center>
+												</td>
+										</tr>
+									{% endfor %}
+								{% endfor %}
+							</table>
+						{% endif %}
+					{% endif %}
+				</div>
+			</td>
+		</tr>
+	</table>
+{% endblock %}
