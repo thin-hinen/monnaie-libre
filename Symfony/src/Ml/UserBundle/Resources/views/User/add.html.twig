@@ -1,10 +1,24 @@
-{% extends "MlUserBundle::layout.html.twig" %}
+{% extends "::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Utilisateur - Ajout
+{{ parent() }}
 {% endblock %}
-	
-{% block user_body %}
+
+{% block body %}
+	<div class = "well">
+		<div align="center">
+			<img src="{{ asset('img/WebSocial.png') }}" alt="Web Social Pour Monnaie Libre"/>
+		</div>
+		<div align="center">
+			<form action="{{ path('ml_user_connexion') }}" method="post">
+				Login <input style="margin-right: 10px" class="input-mini" type="text" id="login" name="login" />
+				Password <input style="margin-right: 10px" class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />
+				<button class="btn btn-primary btn-mini" type="submit">Sign in <i class="icon-white icon-ok-sign"></i> </button>
+			</form>
+		</div>
+	</div>
+
+<hr>
 
 	{% if erreur is defined %}
 		<h5 style="color:red">{{ erreur }}</h5>
@@ -16,7 +30,7 @@
 				<td>
 					<div class="well">
 						<form method="post" class="User" {{ form_enctype(form) }}>
-							<h3 id = "titre_formulaire"><b>Formulaire d'inscription</b></h3>
+							<h3 id = "titre_formulaire"><b>Sign up form</b></h3>
 							{{ form_widget(form) }}
 							<input type="submit" class="btn btn-primary" id="form_validatation" />
 						</form>

@@ -1,0 +1,14 @@
+{% extends "::layout.html.twig" %}
+
+{% block header %}
+	<div id='profile' class='sidebar'><a href="{{ path('ml_user_homepage') }}">{{ user }}</a></div>
+	<div id='prestations' class='pack-start'><a href="{{ path('ml_service_homepage') }}">Prestations</a></div>
+	<div id='groups' class='pack-start'>Groups</div>
+	<div id='logout' class='pack-end'>
+		<form action="{{ path('ml_user_deconnexion') }}" method="post">
+			<button class="btn btn-primary btn-mini" type="submit">Logout <i class="icon-white icon-ok-sign"></i> </button></span>
+		</form>
+	</div>
+	<div class='pack-end'>Karma</div>
+	<div class='pack-end'>Balance</div>
+{% endblock %}

@@ -9,7 +9,38 @@
  */
  
  /* CSS PERSO */
- 
+
+body {
+	margin: 0 0 0 0;
+}
+header {
+	height: 53px;
+	border-bottom: 1px solid #e3e3e3;
+}
+header:after {
+	clear: both;
+}
+#profile, header .pack-start, header .pack-end {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	line-height: 53px;
+}
+#profile {
+	font-size: 1.2em;
+	font-weight:bold;
+}
+header .pack-start {
+	float: left;
+}
+header .pack-end {
+	float: right;
+}
+.sidebar {
+	width: 250px;
+        float: left;
+	border-right: 1px solid #e3e3e3;
+}
+
  /* CSS Service */
  
  .Carpooling #ml_servicebundle_carpooling_departure, #ml_servicebundle_carpooling_arrival, #ml_servicebundle_carpooling_meetingPoint, 
