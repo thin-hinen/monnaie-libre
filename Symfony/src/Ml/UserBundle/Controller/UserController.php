@@ -59,7 +59,7 @@ class UserController extends Controller
 
 	}
 	
-	public function addAction(){
+	public function addAction() {
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
@@ -78,7 +78,7 @@ class UserController extends Controller
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($req->request->get("form")['login']);
 			
-			if($user_existe_deja == NULL) {
+			if($user_existe_deja != NULL) {
 				return $this->render('MlUserBundle:User:add.html.twig', array(
 					  'form' => $form->createView(),
 					  'user' => $u,
