@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Ml\ServiceBundle\Entity\Service;
 use Ml\ServiceBundle\Entity\Carpooling;
+use Ml\ServiceBundle\Entity\CarpoolingUser;
 use Ml\ServiceBundle\Form\CarpoolingType;
 use Ml\UserBundle\Entity\User;
 
@@ -34,19 +35,19 @@ class ServiceController extends Controller
 				}
 				
 				if ($carpooling == true) {
-					$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findAll();
+					$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findByVisibility(true);
 					$services[] = $carpoolings;
 				}
 			}
 			else {
 				/** Récupération de toutes les Services du site **/
-				$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findAll();
+				$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findByVisibility(true);
 				$services[] = $carpoolings;
 			}
 		}
 		else {
 			/** Récupération de toutes les Services du site **/
-			$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findAll();
+			$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findByVisibility(true);
 			$services[] = $carpoolings;
 		}
 		
@@ -57,6 +58,18 @@ class ServiceController extends Controller
 
 	public function seeCarpoolingAction($carpooling = null)
 	{
+		$em=$this->getDoctrine()->getManager();
+		$data_carpooling=$em->getRepository('MlServiceBundle:Carpooling')->findOneById($carpooling);
+		
+		// Si le Service demandé n'existe pas 
+		if($data_carpooling == null){
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+		
+		if($data_carpooling->getVisibility() == false) {
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+		
 		// On récupère la requête
 		$req = $this->get('request');
 		$session = $req->getSession();		
@@ -65,37 +78,49 @@ class ServiceController extends Controller
 		if ($u == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
-	
-		$em=$this->getDoctrine()->getManager();
-		$service=$em->getRepository('MlServiceBundle:Carpooling')->findOneById($carpooling);
 		
-		// Si le Service demandé n'existe pas 
-		if($service == null){
+		if($req->getMethod() != 'POST'){			
+			//Si elle existe, elle est envoyée à la vue 
+			return $this->render('MlServiceBundle:Service:see_carpooling.html.twig', array(
+																						'departure' => $data_carpooling->getDeparture(),
+																						'arrival' => $data_carpooling->getArrival(),
+																						'meetingPoint' => $data_carpooling->getMeetingPoint(),
+																						'arrivalPoint' => $data_carpooling->getArrivalPoint(),
+																						'bends' => $data_carpooling->getBends(),
+																						'departureDate' => $data_carpooling->getDepartureDate()->format("d/m/y"),
+																						'creationDate' => $data_carpooling->getCreationDate()->format("d/m/y"),
+																						'estimatedDuration' => $data_carpooling->getEstimatedDuration(),
+																						'estimatedDistance' => $data_carpooling->getEstimatedDistance(),
+																						'packageTransport' => $data_carpooling->getPackageTransport(),
+																						'packageSize' => $data_carpooling->getPackageSize(),
+																						'car' => $data_carpooling->getCar(),
+																						'smoker' => $data_carpooling->getSmoker(),
+																						'music' => $data_carpooling->getMusic(),
+																						'pets' => $data_carpooling->getPets(),
+																						'title' => $data_carpooling->getTitle(),
+																						'comment' => $data_carpooling->getComment(),
+																						'price' => $data_carpooling->getPrice(),
+																						'creator' => $data_carpooling->getUser()->getLogin(),
+																						'user' => $u));
+		}
+		else {				
+			$current_user = $em->getRepository('MlUserBundle:User')->findOneByLogin($u);
+			
+			$carpoolingUser = new CarpoolingUser;
+			
+			$carpoolingUser->setApplicant($current_user);
+			$carpoolingUser->setCarpooling($data_carpooling);
+			
+			$em->persist($carpoolingUser);
+			$em->flush();
+			
+			$data_carpooling->setVisibility(false);
+			
+			$em->persist($data_carpooling);
+			$em->flush();
+
 			return $this->redirect($this->generateUrl('ml_service_homepage'));
 		}
-		
-		//Si elle existe, elle est envoyée à la vue 
-		return $this->render('MlServiceBundle:Service:see_carpooling.html.twig', array(
-																					'departure' => $service->getDeparture(),
-																					'arrival' => $service->getArrival(),
-																					'meetingPoint' => $service->getMeetingPoint(),
-																					'arrivalPoint' => $service->getArrivalPoint(),
-																					'bends' => $service->getBends(),
-																					'departureDate' => $service->getDepartureDate()->format("d/m/y"),
-																					'creationDate' => $service->getCreationDate()->format("d/m/y"),
-																					'estimatedDuration' => $service->getEstimatedDuration(),
-																					'estimatedDistance' => $service->getEstimatedDistance(),
-																					'packageTransport' => $service->getPackageTransport(),
-																					'packageSize' => $service->getPackageSize(),
-																					'car' => $service->getCar(),
-																					'smoker' => $service->getSmoker(),
-																					'music' => $service->getMusic(),
-																					'pets' => $service->getPets(),
-																					'title' => $service->getTitle(),
-																					'comment' => $service->getComment(),
-																					'price' => $service->getPrice(),
-																					'creator' => $service->getUser()->getLogin(),
-																					'user' => $u));
 	}
 	
 	public function addCarpoolingAction(){

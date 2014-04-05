@@ -8,9 +8,9 @@
 
 	{% if departure is defined %}
 		<div class="well">
+				<h3 id = "title_reservation"><b>{{ title }}</b></h3>
 				<h4 class = "service">Creator :</h4> {{ creator }}
 				<h4 class = "service">Creation Date :</h4> {{ creationDate }}
-				<h4 class = "service">Title :</h4> {{ title }} 
 				<h4 class = "service">Comment :</h4> 
 				{% if comment is null %} 
 					No comment 
@@ -50,7 +50,10 @@
 				{% endif %}
 				{% if music == false %}
 					Non
-				{% endif %}
+				{% endif %}<br>
+				<form action="" method="post">
+					<input type="submit" class="btn btn-primary" id="form_reservation" value = "Réserver" />
+				</form>
 		</div>
 	{% endif %}
 
