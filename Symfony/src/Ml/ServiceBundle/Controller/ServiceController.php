@@ -38,12 +38,18 @@ class ServiceController extends Controller
 					$services[] = $carpoolings;
 				}
 			}
+			else {
+				/** Récupération de toutes les Services du site **/
+				$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findAll();
+				$services[] = $carpoolings;
+			}
 		}
 		else {
 			/** Récupération de toutes les Services du site **/
 			$carpoolings = $this->getDoctrine()->getManager()->getRepository('MlServiceBundle:Carpooling')->findAll();
 			$services[] = $carpoolings;
 		}
+		
 		return $this->render('MlServiceBundle:Service:index.html.twig', array(
 		  'servicess'=>$services,
 		  'user' => $u));
