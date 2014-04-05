@@ -55,8 +55,8 @@ class User
 	 * @Assert\Length(
 	 *			min="3",
 	 *			max="25",
-	 *			minMessage="Votre login doit faire au moins {{limit}} caractères",
-	 *			maxMessage="Votre login ne peut pas dépasser {{limit}} caractères"
+	 *			minMessage="Votre login doit faire au moins 3 caractères",
+	 *			maxMessage="Votre login ne peut pas dépasser 25 caractères"
 	 *)
      * @ORM\Column(name="login", type="string", length=255)
      */
