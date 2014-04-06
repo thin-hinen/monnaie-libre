@@ -4,10 +4,23 @@
   {{ parent() }}
 {% endblock %}
 
+{% block sidebar %}
+<nav>
+	<p><a href="#newservice">New service</a></p>
+	<p><a href="#proposedservices">Proposed services</a></p>
+	<p><a href="#takenservices">Taken services</a></p>
+	<p><a href="#editprofile">Edit Profile</a></p>
+	<p><a href="#changepassword">Change Password</a></p>
+	<p><a href="#emails">Emails</a></p>
+	<p><a href="#status">Status</a></p>
+	<p><a href="#transactions">Transactions</a></p>
+	<p><a href="#notifications">Notifications</a></p>
+</nav>
+{% endblock %}
+
 {% block body %}
   {% block user_body %}
   {% endblock %}
   
   <hr>
-  
 {% endblock %}

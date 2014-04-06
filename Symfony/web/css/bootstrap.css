@@ -15,6 +15,7 @@ body {
 }
 header {
 	height: 53px;
+	line-height: 53px;
 	border-bottom: 1px solid #e3e3e3;
 }
 header:after {
@@ -23,7 +24,6 @@ header:after {
 #profile, header .pack-start, header .pack-end {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
-	line-height: 53px;
 }
 #profile {
 	font-size: 1.2em;
@@ -37,8 +37,12 @@ header .pack-end {
 }
 .sidebar {
 	width: 250px;
-        float: left;
+	float: left;
 	border-right: 1px solid #e3e3e3;
+}
+.sidebar-right {
+	margin-left: 250px;
+	border-left: 1px solid #e3e3e3;
 }
 
  /* CSS Service */
@@ -366,7 +370,7 @@ a:focus {
 }
 
 .row {
-  margin-left: -20px;
+  margin-left: 0px;
   *zoom: 1;
 }
 
