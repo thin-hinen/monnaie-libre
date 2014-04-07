@@ -21,7 +21,10 @@ header {
 header:after {
 	clear: both;
 }
-#profile, header .pack-start, header .pack-end {
+#profile {
+	margin-left: 1em;
+}
+header .pack-start, header .pack-end {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
 }
@@ -43,6 +46,12 @@ header .pack-end {
 .sidebar-right {
 	margin-left: 250px;
 	border-left: 1px solid #e3e3e3;
+}
+.sidebar-container {
+	margin: 1em 1em 1em 1em;
+}
+.sidebar .sidebar-container {
+	font-size: 1.1em;
 }
 
  /* CSS Service */

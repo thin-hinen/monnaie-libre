@@ -17,11 +17,15 @@
 	{% endblock %}
 	
 	<div id="sidebar" class="sidebar">
-		{% block sidebar %}
-		{% endblock %}
+		<div class="sidebar-container">
+			{% block sidebar %}
+			{% endblock %}
+		</div>
 	</div>
 	<div class="sidebar-right">
-		{% block body %}
-		{% endblock %}
+		<div class="sidebar-container">
+			{% block body %}
+			{% endblock %}
+		</div>
 	</div>
 {% endblock %}
