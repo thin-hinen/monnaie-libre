@@ -1,7 +1,7 @@
 {% extends "MlUserBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Profile of {{ login }}
+ {{ parent() }} - Profile of {{ user.login }}
 {% endblock %}
 	
 {% block user_body %}
@@ -20,12 +20,12 @@
 		<h2 id="seeprofile">Profile</h2>
 
 		<div>
-		<p>Login: {{ login }}</p>
+		<p>Login: {{ user.login }}</p>
 		<p>Avatar: -</p>
 		<p>Email: -</p>
-		<p>First Name: {{ firstName }}</p>
-		<p>Last Name: {{ lastName }}</p>
-		<p>Birth Date: {{ dateNaissance }}</p>
+		<p>First Name: {{ user.firstName }}</p>
+		<p>Last Name: {{ user.lastName }}</p>
+		<p>Birth Date: {{ user.dateNaissance }}</p>
 		<p>Job Title: -</p>
 		</div>
 
@@ -43,8 +43,8 @@
 		<h2 id="status">Status</h2>
 
 		<div>
-		<p>Premium: {% if premium == true %} Oui {% endif %} {% if premium == false %} Non {% endif %}</p>
-		<p>Karma: {{ karma }}</p>
+		<p>Premium: {% if user.premium == true %} Oui {% endif %} {% if premium == false %} Non {% endif %}</p>
+		<p>Karma: {{ user.karma }}</p>
 		</div>
 
 		<h2 id="transactions">Transactions</h2>
