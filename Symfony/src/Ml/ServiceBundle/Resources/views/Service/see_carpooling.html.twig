@@ -6,49 +6,49 @@
 	
 {% block service_body %}
 
-	{% if departure is defined %}
+	{% if carpool is not null %}
 		<div class="well">
-				<h3 id = "title_reservation"><b>{{ title }}</b></h3>
-				<h4 class = "service">Creator :</h4> {{ creator }}
-				<h4 class = "service">Creation Date :</h4> {{ creationDate }}
+				<h3 id = "title_reservation"><b>{{ carpool.title }}</b></h3>
+				<h4 class = "service">Creator :</h4> {{ carpool.user.login }}
+				<h4 class = "service">Creation Date :</h4> {{ carpool.creationDate|date("d/m/Y") }}
 				<h4 class = "service">Comment :</h4> 
-				{% if comment is null %} 
+				{% if carpool.comment is null %} 
 					No comment 
 				{% endif %} 
-				{% if comment is null %} 
-					{{ comment }}
+				{% if carpool.comment is null %} 
+					{{ carpool.comment }}
 				{% endif %}
-				<h4 class = "service">Price :</h4> {{ price }} €
-				<h4 class = "service">Departure :</h4> {{ departure }} 
-				<h4 class = "service">Meeting Point :</h4> {{ meetingPoint }}
-				<h4 class = "service">Arrival :</h4> {{ arrival }} 
-				<h4 class = "service">Arrival Point :</h4> {{ arrivalPoint }} 
-				<h4 class = "service">Bends :</h4> {{ bends }} 
-				<h4 class = "service">Departure Date :</h4> {{ departureDate }} 
-				<h4 class = "service">Estimated Duration (min) :</h4> {{ estimatedDuration }} 
-				<h4 class = "service">Estimated Distance (km) :</h4> {{ estimatedDistance }} 
-				<h4 class = "service">Package Transport :</h4> {{ packageTransport }} 
-				<h4 class = "service">Package Size (kg) :</h4> {{ packageSize }} 
-				<h4 class = "service">Car :</h4> {{ car }} 
+				<h4 class = "service">Price :</h4> {{ carpool.price }} €
+				<h4 class = "service">Departure :</h4> {{ carpool.departure }} 
+				<h4 class = "service">Meeting Point :</h4> {{ carpool.meetingPoint }}
+				<h4 class = "service">Arrival :</h4> {{ carpool.arrival }} 
+				<h4 class = "service">Arrival Point :</h4> {{ carpool.arrivalPoint }} 
+				<h4 class = "service">Bends :</h4> {{ carpool.bends }} 
+				<h4 class = "service">Departure Date :</h4> {{ carpool.departureDate|date("d/m/Y") }} 
+				<h4 class = "service">Estimated Duration (min) :</h4> {{ carpool.estimatedDuration }} 
+				<h4 class = "service">Estimated Distance (km) :</h4> {{ carpool.estimatedDistance }} 
+				<h4 class = "service">Package Transport :</h4> {{ carpool.packageTransport }} 
+				<h4 class = "service">Package Size (kg) :</h4> {{ carpool.packageSize }} 
+				<h4 class = "service">Car :</h4> {{ carpool.car }} 
 				<h4 class = "service">Smoker :</h4> 
-				{% if smoker == true %} 
+				{% if carpool.smoker == true %} 
 					Oui
 				{% endif %}
-				{% if smoker == false %} 
+				{% if carpool.smoker == false %} 
 					Non
 				{% endif %}
 				<h4 class = "service">Pets :</h4> 
-				{% if pets == true %} 
+				{% if carpool.pets == true %} 
 					Oui
 				{% endif %}
-				{% if pets == false %} 
+				{% if carpool.pets == false %} 
 					Non
 				{% endif %}
 				<h4 class = "service">Music :</h4> 
-				{% if music == true %}
+				{% if carpool.music == true %}
 					Oui
 				{% endif %}
-				{% if music == false %}
+				{% if carpool.music == false %}
 					Non
 				{% endif %}<br>
 				<form action="" method="post">
