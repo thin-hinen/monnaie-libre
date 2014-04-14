@@ -13,14 +13,19 @@ class UserController extends Controller
 	public function indexAction()
 	{
 		/* Test connexion */
-		$req = $this->get('request');		
-		$user=$this->sessionExist($req);
+		$req = $this->get('request');
+		try {		
+		    $user = $this->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
 
 	
 		/* Récupération de tout les users du site */
-		$users = $this->getDoctrine()->getManager()->getRepository('MlUserBundle:User')->findAll();
+		//$users = $this->getDoctrine()->getManager()->getRepository('MlUserBundle:User')->findAll();
 
-		return $this->render('MlUserBundle:User:index.html.twig', array('users'=>$users,
+		return $this->render('MlUserBundle:User:index.html.twig', array(/*'users'=>$users,*/
 		  'user' => $user));
 	}	
 
@@ -28,7 +33,7 @@ class UserController extends Controller
 	{
 		/* Test connexion */
 		$req = $this->get('request');		
-		$user=sessionExist($req);
+		$user = $this->sessionExist($req);
 	
 		/** S'il existe, il est envoyé à la vue **/
 		return $this->render('MlUserBundle:User:see.html.twig', array('user' => $user));
@@ -38,44 +43,47 @@ class UserController extends Controller
 	public function addAction()
 	{
 		/* Test connexion */
-		$req = $this->get('request');		
-		$this->sessionExist($req);
-		
-		/* Création d'un nouvel utilisateur */	
-		$user = new User;
-		
-		$form = $this->createForm(new UserType(),$user);
-
-		/* Vérification de non doublon du login */
-		if($req->getMethod() == 'POST'){
-			$userExisteDeja = $this->getDoctrine()
-			->getRepository('MlUserBundle:User')
-			->findOneByLogin($req->request->get("form")['login']);
-			
-			/* Doublon -> inscription impossible */
-			if($userExisteDeja != NULL) {
-				return $this->render('MlUserBundle:User:add.html.twig', array(
-					  'form' => $form->createView(),
-					  'user' => $user,
-					  'erreur' => "Le login saisi est déjà pris, veuillez en choisir un autre"));
-			}
-		
-			/* Aucun doublon -> inscription possible. Génération du formulaire d'inscription */
-			$form->bind($req);
-
-			if($form->isValid()){
-				$em=$this->getDoctrine()->getManager();
-				$em->persist($user);
-				$em->flush();
-
-				$this->get('session')->getFlashBag->add('inscription','Bienvenue dans notre communauté');
-
-				return $this->redirect($this->generateUrl('ml_user_see'));
-			}
+		$req = $this->get('request');	
+		try {	
+		    $this->sessionExist($req);
 		}
-		/* Formulaire non valide -> rechargement de la page */
-		return $this->render('MlUserBundle:User:add.html.twig', array('form' => $form->createView(),
-																	'user' => $user));
+		catch (\Exception $e) {
+		    /* Création d'un nouvel utilisateur */	
+		    $user = new User;
+		
+		    $form = $this->createForm(new UserType(),$user);
+
+		    /* Vérification de non doublon du login */
+		    if($req->getMethod() == 'POST'){
+			    $form->bind($req);
+			    $userExisteDeja = $this->getDoctrine()
+			    ->getRepository('MlUserBundle:User')
+			    ->findOneByLogin($form->getData()->getLogin());
+			
+			    /* Doublon -> inscription impossible */
+			    if($userExisteDeja != NULL) {
+				    return $this->render('MlUserBundle:User:add.html.twig', array(
+					      'form' => $form->createView(),
+					      'erreur' => "Le login saisi est déjà pris, veuillez en choisir un autre"));
+			    }
+		
+			    /* Aucun doublon -> inscription possible. Génération du formulaire d'inscription */
+
+			    if($form->isValid()){
+				    $em=$this->getDoctrine()->getManager();
+				    $em->persist($user);
+				    $em->flush();
+
+				    $this->get('session')->getFlashBag()->add('inscription','Bienvenue dans notre communauté');
+				    $this->get('session')->set('login', $form->getData()->getLogin()); 
+
+				    return $this->redirect($this->generateUrl('ml_user_see'));
+			    }
+		    }
+		    /* Formulaire non valide -> rechargement de la page */
+		    return $this->render('MlUserBundle:User:add.html.twig', array('form' => $form->createView()));
+		}
+		return $this->redirect($this->generateUrl('ml_user_see'));		
 	}
 
 	public function deleteAction(User $user)
@@ -119,10 +127,10 @@ class UserController extends Controller
 				$session = new Session();
 				$session->start();
 			
-				$session->set('user', $request->request->get('login')); 
+				$session->set('login', $request->request->get('login')); 
 				
 				return $this->render('MlUserBundle:User:index.html.twig', array(
-					'user' => $session->get('user')));
+					'user' => $this->sessionExist($request)));
 			}
 			else { /* login+password FAIL -> redirection inscription */
 				return $this->redirect($this->generateUrl('ml_user_add'));
@@ -146,14 +154,16 @@ class UserController extends Controller
 	private function sessionExist($req){
 		// On récupère la requête
 		$session = $req->getSession();		
-		$user = $session->get('user');
+		$login = $session->get('login');
 
 		/* Si on est pas logger -> redirection vers la page d'inscription */
-		if ($user == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
+		if ($login == NULL) {
+			throw new \Exception("Non connecté");//$this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
-		return $user;
+		return $this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);;
 	}
 	
 

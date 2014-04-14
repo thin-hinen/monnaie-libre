@@ -150,13 +150,15 @@ class ServiceController extends Controller
 	private function sessionExist($req){
 		// On récupère la requête
 		$session = $req->getSession();		
-		$user = $session->get('user');
+		$login = $session->get('login');
 
 		/* Si on est pas logger -> redirection vers la page d'inscription */
-		if ($user == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
+		if ($login == NULL) {
+			throw new \Exception("Non connecté");//$this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
-		return $user;
+		return $this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);;
 	}
 }
