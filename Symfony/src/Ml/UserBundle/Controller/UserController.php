@@ -14,26 +14,37 @@ class UserController extends Controller
 	{
 		/* Test connexion */
 		$req = $this->get('request');
-		try {		
-		    $user = $this->sessionExist($req);
+		
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
 		}
 		catch (\Exception $e) {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 
-	
-		/* Récupération de tout les users du site */
-		//$users = $this->getDoctrine()->getManager()->getRepository('MlUserBundle:User')->findAll();
 
-		return $this->render('MlUserBundle:User:index.html.twig', array(/*'users'=>$users,*/
-		  'user' => $user));
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
+
+		return $this->render('MlUserBundle:User:index.html.twig', array('user' => $user));
 	}	
 
 	public function seeAction()
 	{
 		/* Test connexion */
-		$req = $this->get('request');		
-		$user = $this->sessionExist($req);
+		$req = $this->get('request');
+		
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
 	
 		/** S'il existe, il est envoyé à la vue **/
 		return $this->render('MlUserBundle:User:see.html.twig', array('user' => $user));
@@ -45,7 +56,7 @@ class UserController extends Controller
 		/* Test connexion */
 		$req = $this->get('request');	
 		try {	
-		    $this->sessionExist($req);
+		    $login = $this->container->get('ml.session')->sessionExist($req);
 		}
 		catch (\Exception $e) {
 		    /* Création d'un nouvel utilisateur */	
@@ -90,8 +101,17 @@ class UserController extends Controller
 	{
 		/* Test connexion */
 		$req = $this->get('request');
-		$user=$this->sessionExist($req);
-	
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
+
 		$form=$this->createFormBuilder()->getForm();
 
 		/* Demande de formulaire de désinscription */
@@ -120,7 +140,7 @@ class UserController extends Controller
 		if ($request->getMethod() == 'POST') {
 			$user = $this->getDoctrine()
 						->getRepository('MlUserBundle:User')
-						->findBy(array('login' => $request->request->get('login'),
+						->findOneBy(array('login' => $request->request->get('login'),
 										'password' => $request->request->get('mot_de_passe')));
 			/* login+password OK -> redirection vers notre page */
 			if ($user != NULL) {
@@ -130,7 +150,7 @@ class UserController extends Controller
 				$session->set('login', $request->request->get('login')); 
 				
 				return $this->render('MlUserBundle:User:index.html.twig', array(
-					'user' => $this->sessionExist($request)));
+					'user' => $user));
 			}
 			else { /* login+password FAIL -> redirection inscription */
 				return $this->redirect($this->generateUrl('ml_user_add'));
@@ -138,7 +158,7 @@ class UserController extends Controller
 		}
 	
 		/* Premier accès à la page de connexion */
-		return $this->render('MlUserBundle:User:index.html.twig');
+		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
 	
 	public function deconnexionAction() {
@@ -150,21 +170,5 @@ class UserController extends Controller
 		$session->invalidate();
 		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
-
-	private function sessionExist($req){
-		// On récupère la requête
-		$session = $req->getSession();		
-		$login = $session->get('login');
-
-		/* Si on est pas logger -> redirection vers la page d'inscription */
-		if ($login == NULL) {
-			throw new \Exception("Non connecté");//$this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
-		return $this->getDoctrine()
-			->getRepository('MlUserBundle:User')
-			->findOneByLogin($login);;
-	}
-	
 
 }
