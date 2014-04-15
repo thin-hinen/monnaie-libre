@@ -16,8 +16,18 @@ class ServiceController extends Controller
 	public function indexAction()
 	{
 		/* Test connexion */
-		$req = $this->get('request');		
-		$user=$this->sessionExist($req);
+		$req = $this->get('request');
+		
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
 
 		if ($req->getMethod() == 'POST') {
 			$carpooling = false;
@@ -66,9 +76,19 @@ class ServiceController extends Controller
 		}
 		
 		/* Test connexion */
-		$req = $this->get('request');		
-		$user=$this->sessionExist($req);
+		$req = $this->get('request');
 		
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
+
 		if($req->getMethod() != 'POST'){			
 			/* Si elle existe, elle est envoyée à la vue */
 			return $this->render('MlServiceBundle:Service:see_carpooling.html.twig', array('user' =>$user,'carpool'=>$data_carpooling));
@@ -95,9 +115,18 @@ class ServiceController extends Controller
 	
 	public function addCarpoolingAction(){
 		/* Test connexion */
-		$req = $this->get('request');		
-		$user=$this->sessionExist($req);
+		$req = $this->get('request');
+		
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
 
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
 	
 		$carpooling = new Carpooling;
 		
@@ -111,7 +140,7 @@ class ServiceController extends Controller
 			if($form->isValid()){			
 				$em=$this->getDoctrine()->getManager();
 				
-				$current_user=$em->getRepository('MlUserBundle:User')->findOneByLogin($user);
+				$current_user=$em->getRepository('MlUserBundle:User')->findOneByLogin($login);
 				$carpooling->setUser($current_user);
 				
 				$em->persist($carpooling);
@@ -133,9 +162,18 @@ class ServiceController extends Controller
 	public function deleteCarpoolingAction(/*Service $service*/)
 	{
 		/* Test connexion */
-		$req = $this->get('request');		
-		$user=$this->sessionExist($req);
+		$req = $this->get('request');
+		
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
 
+        $user=$this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findOneByLogin($login);
 	
 		$em=$this->getDoctrine()->getManager();
 		$service=$em->getRepository('MlServiceBundle:Carpooling')->findById('3');
@@ -147,18 +185,4 @@ class ServiceController extends Controller
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 
-	private function sessionExist($req){
-		// On récupère la requête
-		$session = $req->getSession();		
-		$login = $session->get('login');
-
-		/* Si on est pas logger -> redirection vers la page d'inscription */
-		if ($login == NULL) {
-			throw new \Exception("Non connecté");//$this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
-		return $this->getDoctrine()
-			->getRepository('MlUserBundle:User')
-			->findOneByLogin($login);;
-	}
 }
