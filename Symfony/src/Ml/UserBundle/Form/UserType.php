@@ -17,15 +17,15 @@ class UserType extends AbstractType
         $builder
             //->add('premium','boolean')
             ->add('lastName','text', array(
-											'label' => 'Nom'))
+											'label' => 'Last Name'))
             ->add('firstName','text', array(
-											'label' => 'Prénom'))
-			->add('dateNaissance','birthday', array(
-											'label' => 'Date de naissance'))
+											'label' => 'First Name'))
+			->add('birthDate','birthday', array(
+											'label' => 'Birth Date'))
             ->add('login','text', array(
-											'label' => 'Pseudo'))
+											'label' => 'Login'))
             ->add('password','password', array(
-											'label' => 'Mot de passe'))
+											'label' => 'Password'))
         ;
     }
     

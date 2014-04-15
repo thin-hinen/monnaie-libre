@@ -73,9 +73,9 @@ class User
      * @var date
      *
 	 * @Assert\Date
-     * @ORM\Column(name="dateNaissance", type="date")
+     * @ORM\Column(name="birthDate", type="date")
      */
-    private $dateNaissance;
+    private $birthDate;
 
     /**
      * @var integer
@@ -218,26 +218,26 @@ class User
     }
 
     /**
-     * Set dateNaissance
+     * Set birthDate
      *
-     * @param integer $dateNaissance
+     * @param integer $birthDate
      * @return User
      */
-    public function setDateNaissance($dateNaissance)
+    public function setBirthDate($birthDate)
     {
-        $this->dateNaissance = $dateNaissance;
+        $this->birthDate = $birthDate;
 
         return $this;
     }
 
     /**
-     * Get dateNaissance
+     * Get birthDate
      *
      * @return integer 
      */
-    public function getDateNaissance()
+    public function getBirthDate()
     {
-        return $this->dateNaissance;
+        return $this->birthDate;
     }
 
     /**
