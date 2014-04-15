@@ -3,8 +3,8 @@
 {% block shell %}
 	{% block header %}
 		<header>
-			<div class='sidebar'><div id='profile'><a href="{{ path('ml_user_homepage') }}">{{ user }}</a></div></div>
-			<div id='prestations' class='pack-start'><a href="{{ path('ml_service_homepage') }}">Services</a></div>
+			<div class='sidebar'><div id='profile'><a href="{{ path('ml_user_homepage') }}">{{ user.login }}</a></div></div>
+			<div id='prestations' class='pack-start'><a href="{{ path('ml_service_homepage') }}">Prestations</a></div>
 			<div id='groups' class='pack-start'>Groups</div>
 			<div id='logout' class='pack-end'>
 				<form action="{{ path('ml_user_deconnexion') }}" method="post">
