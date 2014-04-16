@@ -4,6 +4,7 @@ namespace Ml\TransactionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ml\TransactionBundle\Exception\TransactionException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Account
@@ -32,6 +33,7 @@ class Account
     /**
      * @var float
      *
+     * @Assert\Range(max=0)
      * @ORM\Column(name="authorizedOverdraft", type="float")
      */
     private $authorizedOverdraft;

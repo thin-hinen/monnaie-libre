@@ -3,6 +3,7 @@
 namespace Ml\TransactionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Transaction
@@ -24,6 +25,7 @@ class Transaction
     /**
      * @var \DateTime
      *
+	 * @Assert\Date
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
@@ -31,6 +33,8 @@ class Transaction
     /**
      * @var float
      *
+     * @Assert\GreaterThan(value=0,
+	 *			     message="Amount's transaction must be positive")
      * @ORM\Column(name="amount", type="float")
      */
     private $amount;

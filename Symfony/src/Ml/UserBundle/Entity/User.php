@@ -4,6 +4,7 @@ namespace Ml\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ml\TransactionBundle\Entity\Account;
 
 /**
  * User
@@ -13,12 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User
 {
-
+    
 	/**
-     * @ORM\OneToMany(targetEntity="Ml\PrestationBundle\Entity\Prestation",mappedBy="user",cascade={"persist","remove"})
-     */
-    //protected $prestations;
-
+     * @ORM\OneToOne(targetEntity="Ml\TransactionBundle\Entity\Account",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+	 */
+	private $account;
+	
     /**
      * @var integer
      *
@@ -38,6 +40,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="lastName", type="string", length=255)
      */
     private $lastName;
@@ -45,6 +48,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="firstName", type="string", length=255)
      */
     private $firstName;
@@ -55,9 +59,8 @@ class User
 	 * @Assert\Length(
 	 *			min="3",
 	 *			max="25",
-	 *			minMessage="Votre login doit faire au moins 3 caractères",
-	 *			maxMessage="Votre login ne peut pas dépasser 25 caractères"
-	 *)
+	 *			minMessage="Your login must be longer than 3 characters",
+	 *			maxMessage="Your login must be smaller than 25 characters")
      * @ORM\Column(name="login", type="string", length=255)
      */
     private $login;
@@ -65,6 +68,9 @@ class User
     /**
      * @var string
      *
+     * @Assert\Length(
+	 *			min="5",
+	 *			minMessage="Please choose a password with at least 5 characters")
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
@@ -87,11 +93,22 @@ class User
 	public function __construct() {
 		$this->karma = 0;
 		$this->dateNaissance = date_create(date('Y-m-d'));
+		$this->account = new Account(100.0);
 		$this->premium = false;
 		$this->prestation = null;
 	}
 
 
+    /**
+     * Get account
+     *
+     * @return Account 
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }    
+    
     /**
      * Get id
      *
@@ -263,36 +280,4 @@ class User
         return $this->karma;
     }
 
-    /**
-     * Add prestations
-     *
-     * @param \Ml\PrestationBundle\Entity\Prestation $prestations
-     * @return User
-     */
-    /*public function addPrestation(\Ml\PrestationBundle\Entity\Prestation $prestations)
-    {
-        $this->prestations = $prestations;
-    
-        return $this;
-    }*/
-
-    /**
-     * Remove prestations
-     *
-     * @param \Ml\PrestationBundle\Entity\Prestation $prestations
-     */
-   /* public function removePrestation(\Ml\PrestationBundle\Entity\Prestation $prestations)
-    {
-        $this->prestations->removeElement($prestations);
-    }*/
-
-    /**
-     * Get prestations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    /*public function getPrestations()
-    {
-        return $this->prestations;
-    }*/
 }

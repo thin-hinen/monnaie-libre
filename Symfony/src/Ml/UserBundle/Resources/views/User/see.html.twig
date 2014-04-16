@@ -43,11 +43,12 @@
 		<h2 id="status">Status</h2>
 
 		<div>
-		<p>Premium: {% if user.premium == true %} Oui {% endif %} {% if user.premium == false %} Non {% endif %}</p>
+		<p>Premium: {% if user.premium == true %} Yes {% endif %} {% if user.premium == false %} No {% endif %}</p>
 		<p>Karma: {{ user.karma }}</p>
 		</div>
 
 		<h2 id="transactions">Transactions</h2>
+		<p>On your account : {{user.account.amount}} ₱</p>
 
 		<h2 id="notifications">Notifications</h2>
 	

@@ -27,7 +27,7 @@ class UserController extends Controller
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
 
-		return $this->render('MlUserBundle:User:index.html.twig', array('user' => $user));
+		return $this->render('MlUserBundle:User:see.html.twig', array('user' => $user));
 	}	
 
 	public function seeAction()
@@ -149,7 +149,7 @@ class UserController extends Controller
 			
 				$session->set('login', $request->request->get('login')); 
 				
-				return $this->render('MlUserBundle:User:index.html.twig', array(
+				return $this->render('MlUserBundle:User:see.html.twig', array(
 					'user' => $user));
 			}
 			else { /* login+password FAIL -> redirection inscription */

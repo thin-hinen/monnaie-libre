@@ -2,6 +2,5 @@ parameters:
 #    ml_transaction.example.class: Ml\TransactionBundle\Example
 
 services:
-#    ml_transaction.example:
-#        class: %ml_transaction.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ml.session:
+        class: Ml\libServices\SessionTested
