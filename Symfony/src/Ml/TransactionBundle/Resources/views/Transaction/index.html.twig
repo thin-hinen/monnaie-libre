@@ -1,17 +1,58 @@
 {% extends "MlTransactionBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Transaction - Accueil
+ {{ parent() }} - Transaction - List
 {% endblock %}
 	
 {% block transaction_body %}
-
-	Payeur : {{ transaction.debitedAccount.id }} <br />
-	Paye : {{ transaction.creditedAccount.id }} <br />
-	Montant de la transaction : {{transaction.amount}} <br /> 
-	Le {{transaction.date|date("d/m/Y")}} <br />
-	{% if transaction.flag != "" %}
-		Libellé : {{transaction.flag}}
-	{% endif %}
+	<div class="well">
+	    <h2>Your account</h2>
+	    Balance : {{user.account.amount}} ₱<br />
+	    Authorized Overdraft : {{user.account.authorizedOverdraft}} 
+	</div>
+	
+	<div class="well">
+	    <h2>Debits</h2>
+	    <table style="text-align: center;">
+	        <tr>
+	            <th>Date</th>
+	            <th>Amount</th>
+	            <th>Recipient</th>
+	            <th>Label</th>
+	        </tr>
+	        {% if outTransactions is defined%}
+	            {% if outTransactions is not null%}
+	                {% for transaction in outTransactions%}
+	                    <td>{{transaction.date|date("d/m/y")}}</td>
+	                    <td style="color:red;">-{{transaction.amount}}</td>
+	                    <td>{{transaction.creditedAccount.owner.login}}</td>
+	                    <td>{{transaction.flag}}</td>
+	                {% endfor %}
+	            {% endif %}
+	        {% endif %}
+	    </table>
+	</div>
+	
+	<div class="well">
+	    <h2>Credits</h2>
+	    <table style="text-align: center;">
+	        <tr>
+	            <th>Date</th>
+	            <th>Amount</th>
+	            <th>Sender</th>
+	            <th>Label</th>
+	        </tr>
+	        {% if inTransactions is defined%}
+	            {% if inTransactions is not null%}
+	                {% for transaction in inTransactions%}
+	                    <td>{{transaction.date|date("d/m/y")}}</td>
+	                    <td style="color:green;">{{transaction.amount}}</td>
+	                    <td>{{transaction.debitedAccount.owner.login}}</td>
+	                    <td>{{transaction.flag}}</td>
+	                {% endfor %}
+	            {% endif %}
+	        {% endif %}
+	    </table>
+	</div>
 
 {% endblock %}

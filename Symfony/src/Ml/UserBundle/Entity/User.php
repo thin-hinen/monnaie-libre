@@ -16,7 +16,7 @@ class User
 {
     
 	/**
-     * @ORM\OneToOne(targetEntity="Ml\TransactionBundle\Entity\Account",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Ml\TransactionBundle\Entity\Account",inversedBy="owner",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
 	 */
 	private $account;

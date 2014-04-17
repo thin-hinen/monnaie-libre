@@ -5,6 +5,7 @@ namespace Ml\TransactionBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Ml\TransactionBundle\Exception\TransactionException;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ml\UserBundle\Entity\User;
 
 /**
  * Account
@@ -14,6 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Account
 {
+
+	/**
+     * @ORM\OneToOne(targetEntity="Ml\UserBundle\Entity\User",mappedBy="account",cascade={"persist"})
+	 */
+	private $owner;
+	
     /**
      * @var integer
      *
@@ -41,6 +48,16 @@ class Account
     /*********************/
     /***** ACCESSORS *****/
     /*********************/
+    
+    /**
+     * Get owner
+     *
+     * @return User 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
     
     /**
      * Get id
