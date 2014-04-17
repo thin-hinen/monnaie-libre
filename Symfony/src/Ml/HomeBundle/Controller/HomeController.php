@@ -8,16 +8,19 @@ class HomeController extends Controller
 {
     public function indexAction()
     {
-		// On récupère la requête
 		$req = $this->get('request');
-		$session = $req->getSession();		
-		$u = $session->get('user');
 		
-		if ($u == NULL) {
+        try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+		
+		if ($login == NULL) {
 			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 	
-        return $this->render('MlHomeBundle:Home:index.html.twig', array(
-		  'user' => $u));
+        return $this->redirect($this->generateUrl('ml_user_see'));
     }
 }

@@ -1,0 +1,55 @@
+{% extends "MlGroupBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Groups
+{% endblock %}
+
+{% block group_body %}
+
+	<table class="table">
+		<legend><b>Groups</b></legend>
+		{% if message is not null %}
+			<br><br><center>{{ message }}</center>
+		{% endif %}
+		{% if message is null %}
+			<tr>
+				<td>
+					<div class="well">
+						{% if groups is defined %}
+							{% if groups is not null %}
+								<table align = "center">
+									<tr>
+										<td>
+											<center><b>Name</b></center>
+										</td>
+										<td>
+											<center><b>Description</b></center>
+										</td>
+										<td>
+											<center><b>Administrator</b></center>
+										</td>
+									</tr>
+									{% for group in groups %}
+										<tr class = "list_groups" onclick="document.location.href='group/{{ group.id }}'">
+												<td>
+													<center>{{ group.name }}</center>
+												</td>
+												<td>
+													<center>{{ group.description }} </center>
+												</td>
+												<td>
+													<center>{{ group.administrator.login }}</center>
+												</td>
+											</a>
+										</tr>
+									{% endfor %}
+								</table>
+							{% endif %}
+						{% endif %}
+					</div>
+				</td>
+			</tr>
+		{% endif %}
+	</table>
+
+{% endblock %}

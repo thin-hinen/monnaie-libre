@@ -108,7 +108,7 @@ form {
 	margin-bottom: 20px;
  }
  
- .User #ml_userbundle_user_dateNaissance_year, #ml_userbundle_user_dateNaissance_month, #ml_userbundle_user_dateNaissance_day {
+ .User #ml_userbundle_user_birthDate_year, #ml_userbundle_user_birthDate_month, #ml_userbundle_user_birthDate_day {
 	margin-bottom: 20px;
 	margin-right: 20px;
  }
@@ -120,6 +120,29 @@ form {
  .User #form_validatation {
 	margin-left: 360px;
 }
+
+/* css Group */
+ 
+ form.creation_group #form_name {
+	margin-bottom: 20px;
+}
+
+#form_users, label[for=form_users], #form_name, label[for=form_name], #form_description, label[for=form_description] {
+	margin-left: 400px;
+}
+
+#form_validatation_group {
+	margin-left: 480px;
+}
+
+.list_groups { 
+  cursor: pointer;
+ }
+ 
+.list_groups:hover 
+{ 
+   background-color: lightblue; 
+} 
  
  
  /* CSS BOOTSTRAP à ne pas modifier */

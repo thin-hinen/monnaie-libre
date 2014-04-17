@@ -1,0 +1,11 @@
+ml_group_homepage:
+    pattern: /groups
+    defaults: { _controller: MlGroupBundle:Group:index }
+
+ml_group_creation_group:
+    pattern: /creation/group
+    defaults: { _controller: MlGroupBundle:Group:creationGroup }
+
+ml_group_display_group:
+    pattern: /group/{group_id}
+    defaults: { _controller: MlGroupBundle:Group:displayGroup, group_id: null }

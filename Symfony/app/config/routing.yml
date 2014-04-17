@@ -14,3 +14,6 @@ ml_user:
     resource: "@MlUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+ml_group:
+    resource: "@MlGroupBundle/Resources/config/routing.yml"
+    prefix:   /

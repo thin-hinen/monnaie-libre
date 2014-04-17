@@ -1,0 +1,43 @@
+{% extends "MlGroupBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Creation - Group
+{% endblock %}
+
+{% block group_body %}
+
+	{% if error is defined %}
+		<h5 style="color:red">{{ error }}</h5>
+	{% endif %}
+
+	<table class="table">
+		<legend><b>Create your group</b></legend>
+		<tr>
+			<td>
+				<div class="well">
+					<form method="post" class="creation_group" {{ form_enctype(form) }}>
+							{{ form_label(form.name) }}
+							{{ form_errors(form.name) }}
+							{{ form_widget(form.name) }}
+							{{ form_label(form.description) }}
+							{{ form_errors(form.description) }}
+							{{ form_widget(form.description) }}
+				</div>
+			</td>
+		</tr>
+		{% if form.users is defined %}
+			<tr>
+				<td>
+					<div class="well">
+						{{ form_label(form.users) }}
+						{{ form_errors(form.users) }}
+						{{ form_widget(form.users) }}
+					</div>
+				</td>
+			</tr>
+		{% endif %}
+	</table>
+	<input type="submit" class="btn btn-primary" id="form_validatation_group" value="Create the group" />
+	</form>
+
+{% endblock %}
