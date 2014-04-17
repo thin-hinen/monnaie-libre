@@ -1,0 +1,22 @@
+{% extends "MlTransactionBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Transaction - List
+{% endblock %}
+	
+{% block transaction_body %}
+
+    <div class="well">	
+    {% if error is defined %}
+		<h5 style="color:red">{{ error }}</h5>
+	{% endif %}
+	    <form method="post" class="payment">
+		    <h3 id = "titre_formulaire">New payment</h3>
+		    <label>Recipient: <input type="text" name="recipient" required="required" /></label>
+		    <label>Amount: <input type="number" name="amount" required="required" /></label>
+		    <label>Flag: <input type="text" name="flag" /></label>
+		    <input type="submit" class="btn btn-primary" id="form_validatation" />
+	    </form>
+    </div>
+
+{% endblock %}

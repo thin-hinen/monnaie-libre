@@ -8,7 +8,8 @@
 	<div class="well">
 	    <h2>Your account</h2>
 	    Balance : {{user.account.amount}} ₱<br />
-	    Authorized Overdraft : {{user.account.authorizedOverdraft}} 
+	    Authorized Overdraft : {{user.account.authorizedOverdraft}} <br />
+	    <a href="{{path('ml_transaction_payment')}}">New payment</a>
 	</div>
 	
 	<div class="well">
@@ -23,10 +24,12 @@
 	        {% if outTransactions is defined%}
 	            {% if outTransactions is not null%}
 	                {% for transaction in outTransactions%}
+	                <tr>
 	                    <td>{{transaction.date|date("d/m/y")}}</td>
 	                    <td style="color:red;">-{{transaction.amount}}</td>
 	                    <td>{{transaction.creditedAccount.owner.login}}</td>
 	                    <td>{{transaction.flag}}</td>
+	                 </tr>
 	                {% endfor %}
 	            {% endif %}
 	        {% endif %}
@@ -45,10 +48,12 @@
 	        {% if inTransactions is defined%}
 	            {% if inTransactions is not null%}
 	                {% for transaction in inTransactions%}
+	                <tr>
 	                    <td>{{transaction.date|date("d/m/y")}}</td>
 	                    <td style="color:green;">{{transaction.amount}}</td>
 	                    <td>{{transaction.debitedAccount.owner.login}}</td>
 	                    <td>{{transaction.flag}}</td>
+	                </tr>
 	                {% endfor %}
 	            {% endif %}
 	        {% endif %}

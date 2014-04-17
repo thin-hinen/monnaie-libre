@@ -67,7 +67,7 @@ class Transaction
         $this->setAmount($amount);
         $this->setFlag($flag);
         $this->setDate(new \DateTime());
-    }
+    }    
 
     /**
      * Get id

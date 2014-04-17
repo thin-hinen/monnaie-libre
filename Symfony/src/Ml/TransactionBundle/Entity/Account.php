@@ -4,6 +4,7 @@ namespace Ml\TransactionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ml\TransactionBundle\Exception\TransactionException;
+use Ml\TransactionBundle\Exception\RefusedTransactionException;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ml\UserBundle\Entity\User;
 
@@ -160,8 +161,7 @@ class Account
     public function payment(&$target,$amount,$flag="") {
         
         /* Test des préconditions : la cible existe, le montant est positif et le compte peut effectuer le paiement. */
-        if(get_class($target) != "Ml\TransactionBundle\Entity\Account") throw new \Exception("Invalid argument : ".get_class($target));
-        if($amount <= 0) throw new TransactionException("\$amount argument has to be positive.");
+        if($amount <= 0) throw new TransactionException("Amount has to be positive.");
         if($this->getAmount()-$amount < $this->authorizedOverdraft) throw new RefusedTransactionException("Insufficient fund.");
         
         $this->withdraw($amount);
